@@ -43,7 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'faktura',
+    'article',
+    'invoice',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,3 +90,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/srv/http/static/'
+STATICFILES_DIRS=(
+    os.path.join(PROJECT_PATH, 'static'),
+    )

@@ -1,0 +1,36 @@
+#menu {
+    width: 10%;
+    height: 100%;
+    background: lightblue;
+    border-style: solid solid none none;
+    border-color: darkblue;
+    border-width: 2px;
+    padding: 10px;
+    float: left;
+}
+#menu ul {
+    margin:0px;
+    padding:0px;
+    list-style:none;
+}
+#menu p {
+    margin: 0;
+}
+#menu li p {
+    margin: 0;
+    color: #9E3C02;
+}
+#menu li a, a:visited {
+    text-decoration: none;
+    font-weight:normal;
+    color: navy;
+    display: block;
+    background: transparent;
+    padding: 0;
+}
+#menu li a:hover {
+    color: gray;
+    text-decoration: underline;
+    background: transparent;
+    padding: 0;
+}

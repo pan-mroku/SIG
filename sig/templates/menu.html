@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'menu.css' %}" />
+
+<div id="menu">
+  {% if user.is_authenticated %}
+  <p>User: <b>{{ user }}</b></p>
+  {% else %}
+  <p>User: Guest</p>
+  {% endif %}
+  <hr />
+  <ul>
+    <li><a href="/">Main</a></li>
+    <hr />
+    {% if user.is_authenticated %}
+    <li><a href="/logout">Log out</a></li>
+    {% else %}
+    <li><a href="/">register</a></li>
+    <hr />
+    <li><a href="/">Log in</a></li>
+    {% endif %}
+    <hr />
+    <li><a href="/article">Articles</a></li>
+    <hr />
+    <li><a href="/invoice">Invoices</a></li>
+  </ul>
+</div>

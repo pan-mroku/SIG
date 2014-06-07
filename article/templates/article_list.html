@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+{% include "menu.html" %}
+
+<div id="content">
+  <h1>Artykuły: </h1>
+  {% for Article in Articles %}
+  <h2>{{ Article }}</h2>
+  {% endfor %}
+</div>

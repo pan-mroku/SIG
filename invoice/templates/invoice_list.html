@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+{% include "menu.html" %}
+
+<div id="content">
+  <h1>Najnowsze wpisy </h1>
+  {% for Text in Texts %}
+  <h2>{{ Text }}</h2>
+  {% endfor %}
+</div>
