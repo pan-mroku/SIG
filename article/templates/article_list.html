@@ -5,8 +5,11 @@
 {% include "menu.html" %}
 
 <div id="content">
-  <h1>Artykuły: </h1>
+  <h1>Articles: </h1>
+  <a href="add">Add</a>
   {% for Article in Articles %}
-  <h2>{{ Article }}</h2>
+  {% if Article.Availability %}
+  <h2>{{ Article }} <a href="edit?id={{ Article.id }}" >Edit</a></h2>
+  {% endif %}
   {% endfor %}
 </div>

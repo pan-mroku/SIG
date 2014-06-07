@@ -1,0 +1,17 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+{% include "menu.html" %}
+
+<div id="content">
+  {% if ArticleForm.errors %}
+  <p style="color: red;">There were errors: </p>
+  {% endif %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ ArticleForm.as_p }}
+    <input type="submit" value="Add" />
+  </form>
+</div>
