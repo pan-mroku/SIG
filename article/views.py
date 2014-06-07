@@ -9,7 +9,8 @@ def List(request):
 
 def Edit(request):
     if request.method == 'POST':
-        articleForm=ArticleForm(request.POST)
+        article=Article.objects.get(id=request.POST['id'])
+        articleForm=ArticleForm(request.POST, instance=article)
 
         if articleForm.is_valid():
             articleForm.save()
@@ -42,3 +43,10 @@ def Add(request):
         
     context={'ArticleForm':articleForm}
     return render(request, 'article_add.html', context)
+
+def Delete(request):
+    if request.GET.get('id'):
+        article=Article.objects.filter(id=request.GET['id'])
+        if article:
+            article[0].delete()
+    return redirect('article.views.List')

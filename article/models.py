@@ -14,6 +14,7 @@ class ArticleForm(ModelForm):
     class Meta:
         model=Article
         fields='__all__'
+        hidden='id'
 
     def clean_Price(self):
         price = self.cleaned_data['Price']

@@ -11,6 +11,7 @@
 
   <form action="" method="POST">
     {% csrf_token %}
+    <input type="hidden" name="id" value="{{ ArticleForm.instance.id }}" />
     {{ ArticleForm.as_p }}
     <input type="submit" value="Save" />
   </form>
