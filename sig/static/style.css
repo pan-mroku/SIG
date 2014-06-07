@@ -5,11 +5,8 @@ body {
     background: transparent;
 }
 #content {
+    width: 80%;
     margin: auto;
     position: relative;
     float: left;
-}
-#content h1 {
-    font-weight: bold;
-    font-style: italic;
 }

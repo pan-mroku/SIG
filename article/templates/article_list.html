@@ -6,10 +6,20 @@
 
 <div id="content">
   <h1>Articles: </h1>
-  <a href="add">Add</a>
+  <form action="add" method="GET">
+    <input type="submit" value="Add" />
+  </form>
   {% for Article in Articles %}
   {% if Article.Availability %}
-  <h2>{{ Article }} <a href="edit?id={{ Article.id }}" >Edit</a></h2>
+  <h2>{{ Article }} 
+    <div style="overflow: hidden; float: right">
+      <form action="edit" method="GET">
+        <input type="hidden" name="id" value="{{ Article.id }}" />
+        <input type="submit" value="Edit" />
+      </form>
+    </div>
+  </h2>
+  <hr/>
   {% endif %}
   {% endfor %}
 </div>
