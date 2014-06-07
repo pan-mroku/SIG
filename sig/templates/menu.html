@@ -10,18 +10,18 @@
   {% endif %}
   <hr />
   <ul>
-    <li><a href="/">Main</a></li>
+    <li><a href="{% url 'index' %}">Main</a></li>
     <hr />
     {% if user.is_authenticated %}
-    <li><a href="/logout">Log out</a></li>
+    <li><a href="{% url 'index' %}">Log out</a></li>
     {% else %}
-    <li><a href="/">register</a></li>
+    <li><a href="{% url 'index' %}">register</a></li>
     <hr />
-    <li><a href="/">Log in</a></li>
+    <li><a href="{% url 'index' %}">Log in</a></li>
     {% endif %}
     <hr />
-    <li><a href="/article">Articles</a></li>
+    <li><a href="{% url 'ArticleList' %}">Articles</a></li>
     <hr />
-    <li><a href="/invoice">Invoices</a></li>
+    <li><a href="{% url 'InvoiceList' %}">Invoices</a></li>
   </ul>
 </div>

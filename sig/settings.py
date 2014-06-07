@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'article',
     'invoice',
 )
@@ -93,3 +94,5 @@ STATIC_ROOT = '/srv/http/static/'
 STATICFILES_DIRS=(
     os.path.join(PROJECT_PATH, 'static'),
     )
+
+SITE_ID=1
