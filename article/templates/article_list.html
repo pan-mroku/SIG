@@ -1,11 +1,11 @@
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
 {% include "menu.html" %}
 
-<div id="content">
-  <h1>Articles: </h1>
+    <div class="jumbotron">
+      <div class="container">
+  <h3>Articles: </h3>
   <form action="add" method="GET">
     <input type="submit" value="Add" />
   </form>
@@ -15,15 +15,16 @@
     <div style="overflow: hidden; float: right">
       <form action="delete" method="GET">
         <input type="hidden" name="id" value="{{ Article.id }}" />
-        <input type="submit" value="Delete" />
+        <input type="submit" value="Delete" class="btn btn-default" />
       </form>
       <form action="edit" method="GET">
         <input type="hidden" name="id" value="{{ Article.id }}" />
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Edit" class="btn btn-default"  />
       </form>
     </div>
   </h2>
   <hr/>
   {% endif %}
   {% endfor %}
+</div>
 </div>
