@@ -18,23 +18,37 @@
 	<span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">SIG DZIWKO</a>
-      <a class="navbar-brand"  href="/article">Articles</a></li>
-<a class="navbar-brand"  href="/invoice">Invoices</a></li>
-</div>
-{% if user.is_authenticated %}
-<p>User: <b>{{ user }}</b></p>
-{% else %}
-<div class="navbar-collapse collapse">
-  <form class="navbar-form navbar-right" role="form">
-    <div class="form-group">
-      <input type="text" placeholder="Login" class="form-control">
+      <a class="navbar-brand"  href="/article">Articles</a>
+      <a class="navbar-brand"  href="/invoice">Invoices</a>
+      {% if user.is_authenticated %}
+      <p>User: <b>{{ user }}</b></p>
+      {% endif %}
     </div>
-    <div class="form-group">
-      <input type="password" placeholder="Password" class="form-control">
+    {% if user.is_authenticated %}
+    <div class="navbar-collapse collapse">
+      <form class="navbar-form navbar-right" role="form" action="/register/wyloguj/" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg">Log out</button>
+      </form>
     </div>
-    <button type="submit" class="btn btn-success">Log In</button>
-  </form>
-</div><!--/.navbar-collapse -->
-{% endif %}
+    {% else %}
+    <div class="navbar-collapse collapse">
+      <form class="navbar-form navbar-right" role="form" action="/register/logowanie/" method="post"> {% csrf_token %}
+        <div class="form-group">
+          <input type="text" placeholder="Login" name="login" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" name="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Log In</button>
+      </form>
+      <form class="navbar-form navbar-right" role="form" action="/register/zarejestruj/" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+      </form>
+    </div><!--/.navbar-collapse -->
+
+    {% endif %}
+  </div>
 </div>
 </div>

@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    background: transparent;
+}
+#content {
+    height: 80%;
+    margin: auto;
+    position: relative;
+}
