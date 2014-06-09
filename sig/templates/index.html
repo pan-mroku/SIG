@@ -1,9 +1,9 @@
 {% load staticfiles %}
 
-<div id='container'>
-  <div id='header'>
-  </div>
-  {% include "menu.html" %}
-</div>
+{% include "menu.html" %}
 
-<h2>{{ info }}</h2>
+<div class="jumbotron">
+  <div class="container">
+    <h2>{{ info }}</h2>
+  </div>
+</div>
