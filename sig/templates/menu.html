@@ -5,21 +5,17 @@
 <div id="menu">
   {% if user.is_authenticated %}
   <p>User: <b>{{ user }}</b></p>
+	<p><li><a href="/register/wyloguj">Logout</a></li></p>
   {% else %}
   <p>User: Guest</p>
+  	<p><li><a href="/register/zaloguj">Login</a></li></p>
+    <li><a href="/register">Register</a></li>
   {% endif %}
   <hr />
   <ul>
+  	<hr />
     <li><a href="/">Main</a></li>
-    <hr />
-    {% if user.is_authenticated %}
-    <li><a href="/logout">Log out</a></li>
-    {% else %}
-    <li><a href="/">register</a></li>
-    <hr />
-    <li><a href="/">Log in</a></li>
-    {% endif %}
-    <hr />
+		<hr />
     <li><a href="/article">Articles</a></li>
     <hr />
     <li><a href="/invoice">Invoices</a></li>
