@@ -21,7 +21,7 @@
       <a class="navbar-brand"  href="{% url 'ArticleList' %}">Articles</a>
       <a class="navbar-brand"  href="{% url 'InvoiceList' %}">Invoices</a>
       {% if user.is_authenticated %}
-      <p>User: <b>{{ user }}</b></p>
+      <p class="navbar-user" >User: <b>{{ user }}</b></p>
       {% endif %}
     </div>
     {% if user.is_authenticated %}

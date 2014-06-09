@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'article',
     'invoice',
-	'register',
+    'register',
 )
 
 MIDDLEWARE_CLASSES = (
