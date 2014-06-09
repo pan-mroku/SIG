@@ -6,7 +6,7 @@
 <div class="jumbotron">
   <div class="container">
     <h3>Articles: </h3>
-    <form action="add" method="GET">
+    <form action="{% url 'ArticleAdd' %}" method="GET">
       <input type="submit" value="Add" />
     </form>
     {% for Article in Articles %}

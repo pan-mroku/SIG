@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link href="css/jumbotron.css" rel="stylesheet">
+<link href="{% static 'css/jumbotron.css' %}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'menu.css' %}" />
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -17,23 +17,23 @@
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">SIG DZIWKO</a>
-      <a class="navbar-brand"  href="/article">Articles</a>
-      <a class="navbar-brand"  href="/invoice">Invoices</a>
+      <a class="navbar-brand" href="{% url 'index' %}">SIG DZIWKO</a>
+      <a class="navbar-brand"  href="{% url 'ArticleList' %}">Articles</a>
+      <a class="navbar-brand"  href="{% url 'InvoiceList' %}">Invoices</a>
       {% if user.is_authenticated %}
       <p>User: <b>{{ user }}</b></p>
       {% endif %}
     </div>
     {% if user.is_authenticated %}
     <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right" role="form" action="/register/wyloguj/" method="post">
+      <form class="navbar-form navbar-right" role="form" action="{% url 'wyloguj' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-lg">Log out</button>
       </form>
     </div>
     {% else %}
     <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right" role="form" action="/register/logowanie/" method="post"> {% csrf_token %}
+      <form class="navbar-form navbar-right" role="form" action="{% url 'logowanie' %}" method="post"> {% csrf_token %}
         <div class="form-group">
           <input type="text" placeholder="Login" name="login" class="form-control">
         </div>
@@ -42,7 +42,7 @@
         </div>
         <button type="submit" class="btn btn-success">Log In</button>
       </form>
-      <form class="navbar-form navbar-right" role="form" action="/register/zarejestruj/" method="post">
+      <form class="navbar-form navbar-right" role="form" action="{% url 'zarejestruj' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-lg">Register</button>
       </form>
