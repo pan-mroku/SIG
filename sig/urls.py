@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^invoice/', include('invoice.urls')),
     url(r'^article/', include('article.urls')),
+	url(r'^register/', include('register.urls')),
 )

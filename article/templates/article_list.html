@@ -1,29 +1,30 @@
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
 {% include "menu.html" %}
 
-<div id="content">
-  <h1>Articles: </h1>
-  <form action="{% url 'ArticleAdd' %}" method="GET">
-    <input type="submit" value="Add" />
-  </form>
-  {% for Article in Articles %}
-  {% if Article.Availability %}
-  <h2>{{ Article }} 
-    <div style="overflow: hidden; float: right">
-      <form action="{% url 'ArticleDel' %}" method="GET">
-        <input type="hidden" name="id" value="{{ Article.id }}" />
-        <input type="submit" value="Delete" />
-      </form>
-      <form action="{% url 'ArticleEdit'  %}" method="GET">
-        <input type="hidden" name="id" value="{{ Article.id }}" />
-        <input type="submit" value="Edit" />
-      </form>
-    </div>
-  </h2>
-  <hr/>
-  {% endif %}
-  {% endfor %}
+<div class="jumbotron">
+  <div class="container">
+    <h3>Articles: </h3>
+    <form action="add" method="GET">
+      <input type="submit" value="Add" />
+    </form>
+    {% for Article in Articles %}
+    {% if Article.Availability %}
+    <h2>{{ Article }} 
+      <div style="overflow: hidden; float: right">
+        <form action="{% url 'ArticleDel' %}" method="GET">
+          <input type="hidden" name="id" value="{{ Article.id }}" />
+          <input type="submit" value="Delete" class="btn btn-default" />
+        </form>
+        <form action="{% url 'ArticleEdit'  %}" method="GET">
+          <input type="hidden" name="id" value="{{ Article.id }}" />
+          <input type="submit" value="Edit" class="btn btn-default"  />
+        </form>
+      </div>
+    </h2>
+    <hr/>
+    {% endif %}
+    {% endfor %}
+  </div>
 </div>

@@ -18,7 +18,11 @@ TODO
 ----
 
 * Ładne wyświetlanie towarów w article_list (tabelka)
-* Logowanie i rejestracja (ustanawianie uzytkownika modem/pracownikiem firmy może być w panelu administratora)
+* Logowanie i rejestracja (ustanawianie uzytkownika modem/pracownikiem firmy może być w panelu administratora): podstawowo ogarnięte, musze ładnie zrobić, sprzężyć z pozostałymi modułami i posprzątać - nobody.
 * Uzależnienie wyświetlania od typu użytkownika (gość/niezalogowany, klient, pracownik)
+* * Gość - widzi tylko dostępne towary, reszta jest niewidoczna
+* * Klient - widzi dostępne towary z możliwością "dodania do koszyka", czyli złożenia zamówienia, czyli zrobienia faktury z tymi towarami.
+kontahentów niech nie widzi, a faktury na pewno niech widzi własne
+* * Pracownik -  natomiast widzi wszystko
 * Kontrahenci
 * Faktury w aplikacji invoice
