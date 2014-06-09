@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^invoice/', include('invoice.urls')),
     url(r'^article/', include('article.urls')),
 	url(r'^register/', include('register.urls')),
+    url(r'^contractor/', include('contractor.urls')),
 )

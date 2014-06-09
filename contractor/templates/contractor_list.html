@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+
+{% include "menu.html" %}
+
+<div class="jumbotron">
+  <div class="container">
+    <h3>Contractors: </h3>
+    <form action="{% url 'ContractorAdd' %}" method="GET">
+      <input type="submit" value="Add" />
+    </form>
+    {% for Contractor in Contractors %}
+    <h2>{{ Contractor }} 
+      <div style="overflow: hidden; float: right">
+        <form action="{% url 'ContractorDel' %}" method="GET">
+          <input type="hidden" name="id" value="{{ Contractor.id }}" />
+          <input type="submit" value="Delete" class="btn btn-default" />
+        </form>
+        <form action="{% url 'ContractorEdit'  %}" method="GET">
+          <input type="hidden" name="id" value="{{ Contractor.id }}" />
+          <input type="submit" value="Edit" class="btn btn-default"  />
+        </form>
+      </div>
+    </h2>
+    <hr/>
+    {% endfor %}
+  </div>
+</div>

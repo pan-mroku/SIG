@@ -1,0 +1,18 @@
+{% load staticfiles %}
+
+{% include "menu.html" %}
+
+    <div class="jumbotron">
+      <div class="container">
+	  <h3>Add contractor: </h3>
+  {% if ContractorForm.errors %}
+  <p style="color: red;">There were errors: </p>
+  {% endif %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ ContractorForm.as_p }}
+    <input type="submit" value="Add" class="btn btn-default" />
+  </form>
+</div>
+</div>

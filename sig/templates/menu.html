@@ -17,8 +17,9 @@
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'index' %}">SIG DZIWKO</a>
+      <a class="navbar-brand" href="{% url 'index' %}">SIG</a>
       <a class="navbar-brand"  href="{% url 'ArticleList' %}">Articles</a>
+      <a class="navbar-brand"  href="{% url 'ContractorList' %}">Contractors</a>
       <a class="navbar-brand"  href="{% url 'InvoiceList' %}">Invoices</a>
       {% if user.is_authenticated %}
       <p class="navbar-user" >User: <b>{{ user }}</b></p>
