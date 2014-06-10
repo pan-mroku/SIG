@@ -20,10 +20,14 @@ TODO
 * Ładne wyświetlanie towarów w article_list (tabelka)
 * Logowanie i rejestracja (ustanawianie uzytkownika modem/pracownikiem firmy może być w panelu administratora): posprzątać i pozamieniać polskie nazwy na angielskie
 * Uzależnienie wyświetlania od typu użytkownika (gość/niezalogowany, klient, pracownik) - zrobione dla towarów, zrobić jeszcze kontrahentów
-* * Gość - widzi tylko dostępne towary, reszta jest niewidoczna
-* * Klient - widzi dostępne towary z możliwością "dodania do koszyka", czyli złożenia zamówienia, czyli zrobienia faktury z tymi towarami.
+  * Gość - widzi tylko dostępne towary, reszta jest niewidoczna
+  * Klient - widzi dostępne towary z możliwością "dodania do koszyka", czyli złożenia zamówienia, czyli zrobienia faktury z tymi towarami.
 kontahentów niech nie widzi, a faktury na pewno niech widzi własne
-* * Pracownik -  natomiast widzi wszystko
+  * Pracownik -  natomiast widzi wszystko
 * Kontrahenci
-* Faktury w aplikacji invoice
+* Dokończyć faktury
+  * Automatyczne przeliczanie
+  * Wyświetlanie w zależności od uprawnień użytkownika
+  * w ArticleGatherer na pewno jeszcze musi być foreignkey do Invoice
+   https://docs.djangoproject.com/en/dev/topics/db/models/#extra-fields-on-many-to-many-relationships
 * Posprzątać wyświetlanie parametru info na stronach (usunąć z html albo z views)

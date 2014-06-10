@@ -1,12 +1,31 @@
 {% load staticfiles %}
 
+
 {% include "menu.html" %}
 
 <div class="jumbotron">
-<div class="container">
-  <h2>Najnowsze wpisy </h2>
-  {% for Text in Texts %}
-  <h3>{{ Text }}</h3>
-  {% endfor %}
-</div>
+  <div class="container">
+  	{{ info }}
+    <h3>Invoices: </h3>
+	{% if user.is_authenticated %}
+		<form action="{% url 'InvoiceAdd' %}" method="GET">
+			<input type="submit" value="Add" />
+		</form>
+	{% endif %}
+    {% for Invoice in Invoices %}
+    <h2>{{ Invoice }} 
+      <div style="overflow: hidden; float: right">
+        <form action="{% url 'InvoiceDel' %}" method="GET">
+          <input type="hidden" name="id" value="{{ Invoice.id }}" />
+          <input type="submit" value="Delete" class="btn btn-default" />
+        </form>
+        <form action="{% url 'InvoiceEdit'  %}" method="GET">
+          <input type="hidden" name="id" value="{{ Invoice.id }}" />
+          <input type="submit" value="Edit" class="btn btn-default"  />
+        </form>
+      </div>
+    </h2>
+    <hr/>
+    {% endfor %}
+  </div>
 </div>

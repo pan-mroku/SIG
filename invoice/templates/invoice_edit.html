@@ -1,0 +1,21 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+{% include "menu.html" %}
+
+    <div class="jumbotron">
+      <div class="container">
+	  	  <h3>Edit Invoice: </h3>
+  {% if InvoiceForm.errors %}
+  <p style="color: red;">There were errors: </p>
+  {% endif %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ InvoiceForm.instance.id }}" />
+    {{ InvoiceForm.as_p }}
+    <input type="submit" value="Save" class="btn btn-default" />
+  </form>
+</div>
+</div>
