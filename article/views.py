@@ -1,10 +1,24 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,redirect
 from models import *
+from register.models import UserType
 
 def List(request):
-    articles=Article.objects.all()
-    context={'Articles': articles}
+#guest
+    e='Done!'
+    if not request.user.is_authenticated():
+        articles=Article.objects.filter(Availability=True)		
+    else:
+		try:
+			usertype = UserType.objects.get(name=request.user.username)
+			if usertype is not None and usertype.isWorker:
+				articles=Article.objects.all()
+			else:
+				articles=Article.objects.filter(Availability=True)	
+		except Exception as e:
+				articles=Article.objects.filter(Availability=True)
+		
+    context={'Articles': articles, 'info':e}
     return render(request, 'article_list.html', context)
 
 def Edit(request):

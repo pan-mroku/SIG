@@ -5,12 +5,14 @@
 
 <div class="jumbotron">
   <div class="container">
+  	{{ info }}
     <h3>Articles: </h3>
-    <form action="{% url 'ArticleAdd' %}" method="GET">
-      <input type="submit" value="Add" />
-    </form>
+	{% if user.is_authenticated %}
+		<form action="{% url 'ArticleAdd' %}" method="GET">
+			<input type="submit" value="Add" />
+		</form>
+	{% endif %}
     {% for Article in Articles %}
-    {% if Article.Availability %}
     <h2>{{ Article }} 
       <div style="overflow: hidden; float: right">
         <form action="{% url 'ArticleDel' %}" method="GET">
@@ -24,7 +26,6 @@
       </div>
     </h2>
     <hr/>
-    {% endif %}
     {% endfor %}
   </div>
 </div>
