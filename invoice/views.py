@@ -50,26 +50,32 @@ from article.models import Article
 def Add(request):
     isWorker=False
     if request.method == 'POST': # formularz został przesłany
-        invoiceForm = InvoiceForm(request.POST) # powiązanie formularza z przesłanymi danymi
+        invoiceForm = InvoiceForm(request.POST, prefix='invoice') # powiązanie formularza z przesłanymi danymi
         if invoiceForm.is_valid():
             invoice=invoiceForm.save()
-            gatherer=[]
-            for articleid in request.POST['Articles']:
-                article=Article.objects.get(pk=articleid)
-                articleGatherer=ArticleGatherer(Article=article, Invoice=invoice)
-                articleGatherer.save()
-            # for article in gatherer:
-            #     invoice.Articles.append(article)
-            # invoice.save()
-            
+            print str(invoiceForm)
+            print str(invoiceForm.NumberOfArticles)
+            for i in invoiceForm.NumberOfArticles:
+                articleGathererForm=ArticleGathererForm(request.POST, prefix='article_'+str(i))
+                if articleGathererForm.is_valid():
+                    articleGatherer=articleGathererForm.save(commit=False)
+                    articleGatherer.Invoice=invoice
+                    articleGatherer.save()
+
             return redirect('invoice.views.List')
-        
+
+        else:
+            articleGathererForms=[]
+            for i in invoiceForm.NumberOfArticles:
+                articleGathererForms.append(ArticleGathererForm(request.POST, prefix='article_'+str(i)))
     else:
-        invoiceForm = InvoiceForm()
+        invoiceForm = InvoiceForm(prefix='invoice')
+        articleGathererForms=[ArticleGathererForm(prefix='article_1')]
+#        invoiceForm.NumberOfArticles=1
 		
     usertype = UserType.objects.get(name=request.user.username)
     isWorker = usertype.isWorker         
-    context={'InvoiceForm':invoiceForm, 'isWorker':isWorker}
+    context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'isWorker':isWorker}
     return render(request, 'invoice_add.html', context)
 
 def Delete(request):

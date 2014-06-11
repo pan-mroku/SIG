@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ModelForm, ValidationError, ModelMultipleChoiceField
+from django import forms
 
 class ArticleGatherer(models.Model):
     Invoice=models.ForeignKey('Invoice')
@@ -27,8 +27,13 @@ class Invoice(models.Model):
 
 from article.models import Article
 
-class InvoiceForm(ModelForm):
-    Articles=ModelMultipleChoiceField(queryset=Article.objects.all())
+class ArticleGathererForm(forms.ModelForm):
+    class Meta:
+        model=ArticleGatherer
+        exclude=['Invoice']
+
+class InvoiceForm(forms.ModelForm):
+    NumberOfArticles=forms.IntegerField(widget=forms.HiddenInput(), initial=1)
     class Meta:
         model=Invoice
         exclude=['Articles']

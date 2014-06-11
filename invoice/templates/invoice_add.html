@@ -12,6 +12,9 @@
   <form action="" method="POST">
     {% csrf_token %}
     {{ InvoiceForm.as_p }}
+    {% for ArticleGathererForm in ArticleGathererForms %}
+    {{ ArticleGathererForm.as_p }}
+    {% endfor %}
     <input type="submit" value="Add" class="btn btn-default" />
   </form>
 </div>
