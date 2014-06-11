@@ -29,3 +29,10 @@ TODO
   * w ArticleGatherer na pewno jeszcze musi być foreignkey do Invoice
    https://docs.djangoproject.com/en/dev/topics/db/models/#extra-fields-on-many-to-many-relationships
 * Posprzątać wyświetlanie parametru info na stronach (usunąć z html albo z views)
+* jak łaczy się klient i jest zapisany w klientach to może edytować swoje dane
+* * i jeśli zalogowany klient
+jest w kontraghentach, to niehc widzi tylko siebie w kotrnaentach
+z możliwością edycji
+reszty kontrahentóœ niech nie widzi
+* * zrobić możliwość załozenia konta klienta
+i wtedy mozłiwość dodania nowych kontrahwntów (tylko dwóch)
