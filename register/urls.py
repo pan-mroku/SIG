@@ -4,12 +4,10 @@ from django.views.generic import TemplateView
 import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.zarejestruj, name='zarejestruj'),
-    url(r'zaloguj/$', views.zaloguj, name="zaloguj"),
-    url(r'logowanie/$', views.logowanie, name="logowanie"),
-    url(r'rejestracja/$', views.rejestracja, name="rejestracja"),
-    url(r'zarejestruj/$', views.zarejestruj, name="zarejestruj"),
-    url(r'wyloguj/$', views.wyloguj, name="wyloguj"),
-    #po co to? to developmentu wystaczy STATICFILES_DIRS, a na serwerzer zrobi się collectstatic
-    #url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'static'})
+    url(r'^$', views.registerform, name='registerform'),
+    url(r'loginform/$', views.loginform, name="loginform"),
+    url(r'loginprocess/$', views.loginprocess, name="loginprocess"),
+    url(r'registerform/$', views.registerform, name="registerform"),
+    url(r'registerprocess/$', views.registerprocess, name="registerprocess"),
+    url(r'logoutprocess/$', views.logoutprocess, name="logoutprocess"),
 )

@@ -8,14 +8,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from register.models import UserType
 
-def zaloguj(request):
+def loginform(request):
     if not request.user.is_authenticated():
-        return render(request, 'zaloguj.html')
+        return render(request, 'login-form.html')
     else:
-        informacja = u"Zalogowales sie juz!"
-        return render(request, 'index.html', {'info':informacja})
+        information = u"You are logged already!"
+        return render(request, 'index.html', {'info':information})
     
-def logowanie(request):
+def loginprocess(request):
     if not request.user.is_authenticated():
         username = request.POST['login']
         password = request.POST['password']
@@ -23,27 +23,27 @@ def logowanie(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                informacja = u"Zalogowales sie."
-                return render(request, 'index.html', {'info':informacja})
+                information = u"Logged in."
+                return render(request, 'index.html', {'info':information})
             else:
-                info = 'Konto nieaktywne'
-                return render(request, 'zaloguj.html', {'info':info})
+                info = 'Account is not active'
+                return render(request, 'login-form.html', {'info':info})
         else:
-            info2 = u"Zly uzytkownik lub haslo!"
-            return render(request, 'zaloguj.html', {'info':info2})
+            info2 = u"Wrong login or passowrd!"
+            return render(request, 'login-form.html', {'info':info2})
     else:
-        informacja = u"Jestes juz zalogowany!"
-        return render(request, 'zaloguj.html', {'info':informacja})
+        information = u"You are logged already!"
+        return render(request, 'login-form.html', {'info':information})
         
-def zarejestruj(request):
+def registerform(request):
     if not request.user.is_authenticated():
-        return render(request, 'zarejestruj.html')
+        return render(request, 'register.html')
     else:
-        informacja = u'Juz sie zarejestrowales! <a href="/register/wyloguj/">Wyloguj sie</a>'
-        return render(request, 'index.html', {'info':informacja})
+        information = u'You are logged alredy! Please logout.'
+        return render(request, 'index.html', {'info':information})
 
 
-def rejestracja(request):
+def registerprocess(request):
     if not request.user.is_authenticated():
         nazwa = request.POST['user_name']
         haslo = request.POST['user_password']
@@ -55,27 +55,27 @@ def rejestracja(request):
                     uzytkownik.save()
                     usertype = UserType.objects.create(name=nazwa)
                     usertype.save()
-                    informacja = u"Zarejestrowales sie!"
-                    return render(request, 'index.html', {'info':informacja})
+                    information = u"Register done!"
+                    return render(request, 'index.html', {'info':information})
                 except Exception as e:
-                    informacja = u"Uzytkownik juz istnieje!"
-                    return render(request, 'zarejestruj.html', {'info':e})
+                    information = u"Username already exists!"
+                    return render(request, 'register.html', {'info':e})
             else:
-                informacja = u"Nie wpisano loginu lub hasla"
-                return render(request, 'zarejestruj.html', {'info':informacja})
+                information = u"Check your login or password."
+                return render(request, 'register.html', {'info':information})
         else:
-            informacja = u"Hasla nie zgadzaja sie!"
-            return render(request, 'zarejestruj.html', {'info':informacja})
+            information = u"Password didn`t match!"
+            return render(request, 'register.html', {'info':information})
     else:
-        informacja = u"Juz jestes zarejestrowany!"
-        return render(request, 'index.html', {'info':informacja})
+        information = u"You already registered!"
+        return render(request, 'index.html', {'info':information})
      
-def wyloguj(request):
+def logoutprocess(request):
     if request.user.is_authenticated():
         logout(request)
         # Redirect to a success page.
-        informacja = u"Wylogowales sie!"
-        return render(request, 'index.html', {'info':informacja})
+        information = u"Logout finished."
+        return render(request, 'index.html', {'info':information})
     else:
-        info = u"Nie jestes zalogowany!"
-        return render(request, 'index.html', {'info':info})
+        information = u"You are not logged in!"
+        return render(request, 'index.html', {'info':information})

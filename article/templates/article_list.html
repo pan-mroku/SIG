@@ -9,7 +9,7 @@
     <h3>Articles: </h3>
 	{% if user.is_authenticated %}
 		<form action="{% url 'ArticleAdd' %}" method="GET">
-			<input type="submit" value="Add" />
+			<input type="submit" value="Add" class="btn btn-default"/>
 		</form>
 	{% endif %}
     {% for Article in Articles %}

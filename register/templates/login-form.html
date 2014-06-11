@@ -5,7 +5,7 @@
 
 <div class="jumbotron">
   <div class="container">
-    <form action="{% url 'logowanie' %}" method="post">
+    <form action="{% url 'loginprocess' %}" method="post">
       {% csrf_token %}
       <p style="color:red"><b>{{ info }}</b></p>
       <p>

@@ -27,14 +27,14 @@
     </div>
     {% if user.is_authenticated %}
     <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right" role="form" action="{% url 'wyloguj' %}" method="post">
+      <form class="navbar-form navbar-right" role="form" action="{% url 'logoutprocess' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-lg">Log out</button>
       </form>
     </div>
     {% else %}
     <div class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right" role="form" action="{% url 'logowanie' %}" method="post"> {% csrf_token %}
+      <form class="navbar-form navbar-right" role="form" action="{% url 'loginprocess' %}" method="post"> {% csrf_token %}
         <div class="form-group">
           <input type="text" placeholder="Login" name="login" class="form-control">
         </div>
@@ -43,7 +43,7 @@
         </div>
         <button type="submit" class="btn btn-success">Log In</button>
       </form>
-      <form class="navbar-form navbar-right" role="form" action="{% url 'zarejestruj' %}" method="post">
+      <form class="navbar-form navbar-right" role="form" action="{% url 'registerform' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-lg">Register</button>
       </form>
