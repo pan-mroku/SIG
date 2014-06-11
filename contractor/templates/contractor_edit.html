@@ -14,7 +14,11 @@
   <form action="" method="POST">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{ ContractorForm.instance.id }}" />
-    {{ ContractorForm.as_p }}
+	{% if isWorker %}
+      {{ ContractorFormWorker.as_p }}
+	{% else %}
+      {{ ContractorFormClient.as_p }}	
+	{% endif %}
     <input type="submit" value="Save" class="btn btn-default" />
   </form>
 </div>

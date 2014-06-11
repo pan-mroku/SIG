@@ -11,7 +11,11 @@
 
   <form action="" method="POST">
     {% csrf_token %}
-    {{ ContractorForm.as_p }}
+	{% if isWorker %}
+      {{ ContractorFormWorker.as_p }}
+	{% else %}
+      {{ ContractorFormClient.as_p }}	
+	{% endif %}
     <input type="submit" value="Add" class="btn btn-default" />
   </form>
 </div>

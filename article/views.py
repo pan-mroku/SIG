@@ -5,7 +5,6 @@ from register.models import UserType
 
 def List(request):
 #guest
-    e='Done!'
     isWorker=False
     if not request.user.is_authenticated():
         articles=Article.objects.filter(Availability=True)		
@@ -20,7 +19,7 @@ def List(request):
 		except Exception as e:
 				articles=Article.objects.filter(Availability=True)
 		
-    context={'Articles': articles, 'info':e, 'isWorker':isWorker}
+    context={'Articles': articles, 'isWorker':isWorker}
     return render(request, 'article_list.html', context)
 
 def Edit(request):
