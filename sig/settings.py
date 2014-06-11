@@ -45,10 +45,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'article',
+    'register',
+    'index',
     'contractor',
     'invoice',
-    'register',
-	'index',
 )
 
 MIDDLEWARE_CLASSES = (

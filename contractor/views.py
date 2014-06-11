@@ -9,10 +9,8 @@ def List(request):
     isWorker = usertype.isWorker
     if isWorker:
         contractors=Contractor.objects.all()
-    elif Contractor.objects.filter(Login=request.user.username).count() == 1:
-        contractors=[Contractor.objects.get(Login=request.user.username)]
     else:
-		contractors=None
+        contractors=Contractor.objects.filter(Login=usertype.pk, Supplier=False)
     context={'Contractors': contractors, 'isWorker':isWorker}
     return render(request, 'contractor_list.html', context)
 
@@ -59,11 +57,11 @@ def Add(request):
     if request.method == 'POST': # formularz został przesłany
       supplier = request.POST.get('Supplier', False)      
       if isWorker:
-        contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=supplier,Login=request.POST['Login'])
+        contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=supplier,Login=UserType.objects.get(pk=request.POST['Login']))
         contractor.save()
       else:
-        contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=False,Login=request.user.username)
-        contractor.save()	
+        contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=False,Login=UserType.objects.get(name=request.user.username))
+        contractor.save()
       return redirect('contractor.views.List')	
 
     if isWorker:	
