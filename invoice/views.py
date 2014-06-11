@@ -52,22 +52,23 @@ def Add(request):
     if request.method == 'POST': # formularz został przesłany
         invoiceForm = InvoiceForm(request.POST, prefix='invoice') # powiązanie formularza z przesłanymi danymi
         if invoiceForm.is_valid():
-            invoice=invoiceForm.save()
-            print str(invoiceForm)
-            print str(invoiceForm.NumberOfArticles)
-            for i in invoiceForm.NumberOfArticles:
+            data = invoiceForm.cleaned_data
+            print str(data)
+            for i in range(data['NumberOfArticles']):
                 articleGathererForm=ArticleGathererForm(request.POST, prefix='article_'+str(i))
                 if articleGathererForm.is_valid():
                     articleGatherer=articleGathererForm.save(commit=False)
                     articleGatherer.Invoice=invoice
                     articleGatherer.save()
-
+					
+            invoice.NumberOfArticles=data['NumberOfArticles']
+            invoice=invoiceForm.save()
             return redirect('invoice.views.List')
 
         else:
             articleGathererForms=[]
-            for i in invoiceForm.NumberOfArticles:
-                articleGathererForms.append(ArticleGathererForm(request.POST, prefix='article_'+str(i)))
+            #for i in invoiceForm.cleaned_data['Articles']: - to nie ma prawa bytu poniewaz mozna wyciagac wartosci tylko jezeli invoiceForm jest valid, a nie jest
+            #    articleGathererForms.append(ArticleGathererForm(request.POST, prefix='article_'+str(i)))
     else:
         invoiceForm = InvoiceForm(prefix='invoice')
         articleGathererForms=[ArticleGathererForm(prefix='article_1')]
