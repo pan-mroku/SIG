@@ -7,25 +7,56 @@
   <div class="container">
   	{{ info }}
     <h3>Articles: </h3>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Name</h2>
+      </div>
+      <div class="col-md-4">
+        <h2>Price</h2>
+      </div>
+      <div class="col-md-4">
+        <h2>Availability</h2>
+      </div>
+	</div>
+  </div>
+</div>
+    {% for Article in Articles %}
+	  {% if forloop.counter|divisibleby:2 %}
+        <div class="jumbotron">
+	  {% endif %}
+      <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <p>{{ Article.Name }}</p>
+        </div>
+        <div class="col-md-4">
+          <p>{{ Article.Price }}</p>
+        </div>
+        <div class="col-md-4">
+          <p>{{ Article.Availability }}</p>
+        </div>
+        <div class="col-md-4">
+			<form action="{% url 'ArticleEdit'  %}" method="GET">
+              <input type="hidden" name="id" value="{{ Article.id }}" />
+              <input type="submit" value="Edit" class="btn btn-default"  />
+            </form>
+            <form action="{% url 'ArticleDel' %}" method="GET">
+              <input type="hidden" name="id" value="{{ Article.id }}" />
+              <input type="submit" value="Delete" class="btn btn-default" />
+            </form>
+        </div>
+        </div>
+	  </div>
+	  {% if forloop.counter0|divisibleby:2 %}
+        </div>
+	  {% endif %}
+    {% endfor %}
 	{% if user.is_authenticated %}
+<div class="jumbotron">
+  <div class="container">
 		<form action="{% url 'ArticleAdd' %}" method="GET">
-			<input type="submit" value="Add" class="btn btn-default"/>
+			<input type="submit" value="Add New Article" class="btn btn-default"/>
 		</form>
 	{% endif %}
-    {% for Article in Articles %}
-    <h2>{{ Article }} 
-      <div style="overflow: hidden; float: right">
-        <form action="{% url 'ArticleDel' %}" method="GET">
-          <input type="hidden" name="id" value="{{ Article.id }}" />
-          <input type="submit" value="Delete" class="btn btn-default" />
-        </form>
-        <form action="{% url 'ArticleEdit'  %}" method="GET">
-          <input type="hidden" name="id" value="{{ Article.id }}" />
-          <input type="submit" value="Edit" class="btn btn-default"  />
-        </form>
-      </div>
-    </h2>
-    <hr/>
-    {% endfor %}
   </div>
 </div>
