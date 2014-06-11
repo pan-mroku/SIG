@@ -6,19 +6,21 @@ from register.models import UserType
 def List(request):
 #guest
     e='Done!'
+    isWorker=False
     if not request.user.is_authenticated():
         articles=Article.objects.filter(Availability=True)		
     else:
 		try:
 			usertype = UserType.objects.get(name=request.user.username)
-			if usertype is not None and usertype.isWorker:
+			isWorker = usertype.isWorker
+			if usertype is not None and isWorker:
 				articles=Article.objects.all()
 			else:
 				articles=Article.objects.filter(Availability=True)	
 		except Exception as e:
 				articles=Article.objects.filter(Availability=True)
 		
-    context={'Articles': articles, 'info':e}
+    context={'Articles': articles, 'info':e, 'isWorker':isWorker}
     return render(request, 'article_list.html', context)
 
 def Edit(request):
@@ -41,10 +43,13 @@ def Edit(request):
         else:
             return redirect('article.views.List')
 
-    context={'ArticleForm':articleForm}
+	usertype = UserType.objects.get(name=request.user.username)
+	isWorker = usertype.isWorker 
+    context={'ArticleForm':articleForm, 'isWorker':isWorker}
     return render(request, 'article_edit.html', context)
     
 def Add(request):
+    isWorker=False
     if request.method == 'POST': # formularz został przesłany
         articleForm = ArticleForm(request.POST) # powiązanie formularza z przesłanymi danymi
         if articleForm.is_valid():
@@ -54,8 +59,9 @@ def Add(request):
         
     else:
         articleForm = ArticleForm()
-        
-    context={'ArticleForm':articleForm}
+        usertype = UserType.objects.get(name=request.user.username)
+        isWorker = usertype.isWorker    
+    context={'ArticleForm':articleForm, 'isWorker':isWorker}
     return render(request, 'article_add.html', context)
 
 def Delete(request):

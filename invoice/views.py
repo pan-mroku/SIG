@@ -5,11 +5,15 @@ from models import *
 from register.models import UserType
 
 def List(request):
+    isWorker=False
     invoices=Invoice.objects.all()
-    context={'Invoices' : invoices}
+    usertype = UserType.objects.get(name=request.user.username)
+    isWorker = usertype.isWorker 
+    context={'Invoices' : invoices, 'isWorker':isWorker}
     return render(request, 'invoice_list.html',context)
 
 def Edit(request):
+    isWorker=False
     if request.method == 'POST':
         invoice=Invoice.objects.get(id=request.POST['id'])
         invoiceForm=InvoiceForm(request.POST, instance=invoice)
@@ -28,13 +32,16 @@ def Edit(request):
                 return redirect('invoice.views.List')
         else:
             return redirect('invoice.views.List')
-
-    context={'InvoiceForm':invoiceForm}
+			
+	usertype = UserType.objects.get(name=request.user.username)
+	isWorker = usertype.isWorker 
+    context={'InvoiceForm':invoiceForm, 'isWorker':isWorker}
     return render(request, 'invoice_edit.html', context)
 
 from article.models import Article
 
 def Add(request):
+    isWorker=False
     if request.method == 'POST': # formularz został przesłany
         invoiceForm = InvoiceForm(request.POST) # powiązanie formularza z przesłanymi danymi
         if invoiceForm.is_valid():
@@ -53,8 +60,10 @@ def Add(request):
         
     else:
         invoiceForm = InvoiceForm()
-        
-    context={'InvoiceForm':invoiceForm}
+		
+    usertype = UserType.objects.get(name=request.user.username)
+    isWorker = usertype.isWorker         
+    context={'InvoiceForm':invoiceForm, 'isWorker':isWorker}
     return render(request, 'invoice_add.html', context)
 
 def Delete(request):

@@ -9,13 +9,17 @@ from django.contrib.auth.models import User
 from register.models import UserType
 
 def loginform(request):
+    isWorker=False
     if not request.user.is_authenticated():
         return render(request, 'login-form.html')
     else:
         information = u"You are logged already!"
-        return render(request, 'index.html', {'info':information})
+        usertype = UserType.objects.get(name=request.user.username)
+        isWorker = usertype.isWorker
+        return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
     
 def loginprocess(request):
+    isWorker=False
     if not request.user.is_authenticated():
         username = request.POST['login']
         password = request.POST['password']
@@ -24,26 +28,30 @@ def loginprocess(request):
             if user.is_active:
                 login(request, user)
                 information = u"Logged in."
-                return render(request, 'index.html', {'info':information})
+                usertype = UserType.objects.get(name=request.user.username)
+                isWorker = usertype.isWorker
+                return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
             else:
                 info = 'Account is not active'
-                return render(request, 'login-form.html', {'info':info})
+                return render(request, 'login-form.html', {'info':info, 'isWorker':isWorker})
         else:
             info2 = u"Wrong login or passowrd!"
-            return render(request, 'login-form.html', {'info':info2})
+            return render(request, 'login-form.html', {'info':info2, 'isWorker':isWorker})
     else:
         information = u"You are logged already!"
-        return render(request, 'login-form.html', {'info':information})
+        return render(request, 'login-form.html', {'info':information, 'isWorker':isWorker})
         
 def registerform(request):
+    isWorker=False
     if not request.user.is_authenticated():
         return render(request, 'register.html')
     else:
         information = u'You are logged alredy! Please logout.'
-        return render(request, 'index.html', {'info':information})
+        return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
 
 
 def registerprocess(request):
+    isWorker=False
     if not request.user.is_authenticated():
         nazwa = request.POST['user_name']
         haslo = request.POST['user_password']
@@ -56,26 +64,27 @@ def registerprocess(request):
                     usertype = UserType.objects.create(name=nazwa)
                     usertype.save()
                     information = u"Register done!"
-                    return render(request, 'index.html', {'info':information})
+                    return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
                 except Exception as e:
                     information = u"Username already exists!"
-                    return render(request, 'register.html', {'info':e})
+                    return render(request, 'register.html', {'info':e, 'isWorker':isWorker})
             else:
                 information = u"Check your login or password."
-                return render(request, 'register.html', {'info':information})
+                return render(request, 'register.html', {'info':information, 'isWorker':isWorker})
         else:
             information = u"Password didn`t match!"
-            return render(request, 'register.html', {'info':information})
+            return render(request, 'register.html', {'info':information, 'isWorker':isWorker})
     else:
         information = u"You already registered!"
-        return render(request, 'index.html', {'info':information})
+        return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
      
 def logoutprocess(request):
+    isWorker=False
     if request.user.is_authenticated():
         logout(request)
         # Redirect to a success page.
         information = u"Logout finished."
-        return render(request, 'index.html', {'info':information})
+        return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
     else:
         information = u"You are not logged in!"
-        return render(request, 'index.html', {'info':information})
+        return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
