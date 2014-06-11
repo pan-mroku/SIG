@@ -49,7 +49,8 @@ from article.models import Article
 
 def Add(request):
     usertype = UserType.objects.get(name=request.user.username)
-    isWorker = usertype.isWorker 
+    isWorker = usertype.isWorker
+    articleGathererFormExample=ArticleGathererForm(prefix='article___NUMBER__')
     articleGathererForms=[]
     if request.method == 'POST': # formularz został przesłany
         invoiceForm = InvoiceForm(request.POST, prefix='invoice') # powiązanie formularza z przesłanymi danymi
@@ -64,7 +65,7 @@ def Add(request):
                     articleGatherer.Invoice=invoice
                     articleGatherer.save()
                 else:
-                    context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'isWorker':isWorker}
+                    context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}
                     return render(request, 'invoice_add.html', context) 
 					
             return redirect('invoice.views.List')
@@ -77,7 +78,7 @@ def Add(request):
         invoiceForm = InvoiceForm(prefix='invoice')
         articleGathererForms=[ArticleGathererForm(prefix='article_1')]
            
-    context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'isWorker':isWorker}
+    context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}
     return render(request, 'invoice_add.html', context)
 
 def Delete(request):
