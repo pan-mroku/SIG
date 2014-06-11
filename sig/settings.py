@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'contractor',
     'invoice',
     'register',
+	'index',
 )
 
 MIDDLEWARE_CLASSES = (
