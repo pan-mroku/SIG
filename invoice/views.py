@@ -48,34 +48,35 @@ def Edit(request):
 from article.models import Article
 
 def Add(request):
-    isWorker=False
+    usertype = UserType.objects.get(name=request.user.username)
+    isWorker = usertype.isWorker 
+    articleGathererForms=[]
     if request.method == 'POST': # formularz został przesłany
         invoiceForm = InvoiceForm(request.POST, prefix='invoice') # powiązanie formularza z przesłanymi danymi
         if invoiceForm.is_valid():
             data = invoiceForm.cleaned_data
-            print str(data)
+            invoice=invoiceForm.save()
             for i in range(data['NumberOfArticles']):
-                articleGathererForm=ArticleGathererForm(request.POST, prefix='article_'+str(i))
+                articleGathererForm=ArticleGathererForm(request.POST, prefix='article_'+str(i+1))
+                articleGathererForms.append(articleGathererForm)
                 if articleGathererForm.is_valid():
                     articleGatherer=articleGathererForm.save(commit=False)
                     articleGatherer.Invoice=invoice
                     articleGatherer.save()
+                else:
+                    context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'isWorker':isWorker}
+                    return render(request, 'invoice_add.html', context) 
 					
-            invoice.NumberOfArticles=data['NumberOfArticles']
-            invoice=invoiceForm.save()
             return redirect('invoice.views.List')
 
         else:
-            articleGathererForms=[]
-            #for i in invoiceForm.cleaned_data['Articles']: - to nie ma prawa bytu poniewaz mozna wyciagac wartosci tylko jezeli invoiceForm jest valid, a nie jest
-            #    articleGathererForms.append(ArticleGathererForm(request.POST, prefix='article_'+str(i)))
+
+            for i in range(int(invoiceForm.hidden_fields()[0].value())):
+                    articleGathererForms.append(ArticleGathererForm(request.POST, prefix='article_'+str(i+1)))
     else:
         invoiceForm = InvoiceForm(prefix='invoice')
         articleGathererForms=[ArticleGathererForm(prefix='article_1')]
-#        invoiceForm.NumberOfArticles=1
-		
-    usertype = UserType.objects.get(name=request.user.username)
-    isWorker = usertype.isWorker         
+           
     context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'isWorker':isWorker}
     return render(request, 'invoice_add.html', context)
 

@@ -8,7 +8,7 @@ class ArticleGatherer(models.Model):
 
 class Invoice(models.Model):
     Contractor=models.ForeignKey('contractor.Contractor')
-    Articles=models.ManyToManyField('ArticleGatherer')
+    Articles=models.ManyToManyField('article.Article', through='ArticleGatherer')
     DateOfSale=models.DateField(auto_now_add=True)
     PAYMENT_CHOICES=(
         ('CASH', 'Cash'),
@@ -23,8 +23,6 @@ class Invoice(models.Model):
         #    out=out+'\n'+article.Article.Code+' '+article.Article.Name+' '+article.Article.Price+' '+article.Quantity
         out=out+'\n'+self.MethodOfPayment+str(self.DateOfPayment)
         return out
-
-
 from article.models import Article
 
 class ArticleGathererForm(forms.ModelForm):
