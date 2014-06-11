@@ -18,8 +18,7 @@ TODO
 ----
 
 * Ładne wyświetlanie towarów w article_list (tabelka)
-* Logowanie i rejestracja (ustanawianie uzytkownika modem/pracownikiem firmy może być w panelu administratora): posprzątać i pozamieniać polskie nazwy na angielskie
-* Uzależnienie wyświetlania od typu użytkownika (gość/niezalogowany, klient, pracownik) - zrobione dla towarów, zrobić jeszcze kontrahentów
+* Uzależnienie wyświetlania od typu użytkownika (gość/niezalogowany, klient, pracownik) - Zrobić faktury jak będą skończone, i zrobić index jako view, bo bez tego nie można przekazać parametru isWorker
   * Gość - widzi tylko dostępne towary, reszta jest niewidoczna
   * Klient - widzi dostępne towary z możliwością "dodania do koszyka", czyli złożenia zamówienia, czyli zrobienia faktury z tymi towarami.
 kontahentów niech nie widzi, a faktury na pewno niech widzi własne
