@@ -28,6 +28,7 @@ class Invoice(models.Model):
 from article.models import Article
 
 class ArticleGathererForm(forms.ModelForm):
+    Quantity=forms.IntegerField(widget=forms.NumberInput(attrs={'min':'1'}), initial=1)
     class Meta:
         model=ArticleGatherer
         exclude=['Invoice']
