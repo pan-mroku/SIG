@@ -61,7 +61,10 @@ def registerprocess(request):
                 try:
                     uzytkownik = User.objects.create_user(nazwa, '',haslo)
                     uzytkownik.save()
-                    usertype = UserType.objects.create(name=nazwa)
+                    if nazwa == 'worker':
+                      usertype = UserType.objects.create(name=nazwa, isWorker=True)
+                    else:
+                      usertype = UserType.objects.create(name=nazwa, isWorker=False)					
                     usertype.save()
                     information = u"Register done!"
                     return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
