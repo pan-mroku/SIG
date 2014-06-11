@@ -22,10 +22,10 @@
       <div id="articlesDiv">
         {% for ArticleGathererForm in ArticleGathererForms %}
         {{ ArticleGathererForm.as_p }}
-        <input type="button" value="Add another article" onClick="addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');">
+        <input type="button" value="Add another article" class="btn btn-default" onClick="addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');">
         {% endfor %}
       </div>
-      <input type="submit" value="Add" class="btn btn-default" />
+
     </form>
   </div>
 </div>

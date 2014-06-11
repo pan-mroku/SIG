@@ -61,12 +61,13 @@
         </div>
 	  {% endif %}
     {% endfor %}
-	{% if user.is_authenticated %}
+	{% if isWorker %}
 <div class="jumbotron">
   <div class="container">
 		<form action="{% url 'ArticleAdd' %}" method="GET">
 			<input type="submit" value="Add New Article" class="btn btn-default"/>
 		</form>
-	{% endif %}
   </div>
 </div>
+	{% endif %}
+

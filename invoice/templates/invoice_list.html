@@ -7,11 +7,7 @@
   <div class="container">
   	{{ info }}
     <h3>Invoices: </h3>
-	{% if user.is_authenticated %}
-		<form action="{% url 'InvoiceAdd' %}" method="GET">
-			<input type="submit" value="Add" />
-		</form>
-	{% endif %}
+
     {% for Invoice in Invoices %}
     <h2>{{ Invoice }} 
       <div style="overflow: hidden; float: right">
@@ -29,3 +25,12 @@
     {% endfor %}
   </div>
 </div>
+	{% if isWorker %}
+<div class="jumbotron">
+  <div class="container">
+		<form action="{% url 'InvoiceAdd' %}" method="GET">
+			<input type="submit" value="Add New Invoice" class="btn btn-default"/>
+		</form>
+  </div>
+</div>
+	{% endif %}

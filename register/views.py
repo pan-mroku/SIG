@@ -51,7 +51,7 @@ def registerform(request):
 
 
 def registerprocess(request):
-    isWorker=False
+    worker=False
     if not request.user.is_authenticated():
         nazwa = request.POST['user_name']
         haslo = request.POST['user_password']
@@ -62,24 +62,24 @@ def registerprocess(request):
                     uzytkownik = User.objects.create_user(nazwa, '',haslo)
                     uzytkownik.save()
                     if nazwa == 'worker':
-                      usertype = UserType.objects.create(name=nazwa, isWorker=True)
-                    else:
-                      usertype = UserType.objects.create(name=nazwa, isWorker=False)					
+                      worker=True
+
+                    usertype = UserType.objects.create(name=nazwa, isWorker=worker)					
                     usertype.save()
                     information = u"Register done!"
-                    return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
+                    return render(request, 'index.html', {'info':information, 'isWorker':worker})
                 except Exception as e:
                     information = u"Username already exists!"
-                    return render(request, 'register.html', {'info':e, 'isWorker':isWorker})
+                    return render(request, 'register.html', {'info':e, 'isWorker':worker})
             else:
                 information = u"Check your login or password."
-                return render(request, 'register.html', {'info':information, 'isWorker':isWorker})
+                return render(request, 'register.html', {'info':information, 'isWorker':worker})
         else:
             information = u"Password didn`t match!"
-            return render(request, 'register.html', {'info':information, 'isWorker':isWorker})
+            return render(request, 'register.html', {'info':information, 'isWorker':worker})
     else:
         information = u"You already registered!"
-        return render(request, 'index.html', {'info':information, 'isWorker':isWorker})
+        return render(request, 'index.html', {'info':information, 'isWorker':worker})
      
 def logoutprocess(request):
     isWorker=False
