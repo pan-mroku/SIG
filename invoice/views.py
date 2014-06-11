@@ -12,6 +12,13 @@ def List(request):
     context={'Invoices' : invoices, 'isWorker':isWorker}
     return render(request, 'invoice_list.html',context)
 
+# def View(request):
+#     if request.method == 'POST':
+#         invoice=Invoice.objects.get(id=request.POST['invoiceId'])
+#         invoiceForm=InvoiceForm(request.POST, instance=invoice)
+#         articles=ArticleGatherer.objects.get(id=request.POST['articlesId'])
+        
+
 def Edit(request):
     isWorker=False
     if request.method == 'POST':
@@ -45,16 +52,15 @@ def Add(request):
     if request.method == 'POST': # formularz został przesłany
         invoiceForm = InvoiceForm(request.POST) # powiązanie formularza z przesłanymi danymi
         if invoiceForm.is_valid():
+            invoice=invoiceForm.save()
             gatherer=[]
             for articleid in request.POST['Articles']:
                 article=Article.objects.get(pk=articleid)
-                articleGatherer=ArticleGatherer(Article=article)
+                articleGatherer=ArticleGatherer(Article=article, Invoice=invoice)
                 articleGatherer.save()
-                gatherer.append(articleGatherer)
-            invoice=invoiceForm.save()
-            for article in gatherer:
-                invoice.Articles.append(article)
-            invoice.save()
+            # for article in gatherer:
+            #     invoice.Articles.append(article)
+            # invoice.save()
             
             return redirect('invoice.views.List')
         

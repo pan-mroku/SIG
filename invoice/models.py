@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm, ValidationError, ModelMultipleChoiceField
 
 class ArticleGatherer(models.Model):
+    Invoice=models.ForeignKey('Invoice')
     Article=models.ForeignKey('article.Article')
     Quantity=models.PositiveSmallIntegerField(default=1)
 
