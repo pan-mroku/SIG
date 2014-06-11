@@ -19,8 +19,7 @@ def Edit(request):
     usertype = UserType.objects.get(name=request.user.username)
     isWorker = usertype.isWorker
     if request.method == 'POST':
-        ID=int(request.GET['id'])
-        contractor=Contractor.objects.get(id=ID)
+        contractor=Contractor.objects.get(id=request.POST['id'])
         if isWorker:
           contractorForm=ContractorFormWorker(request.POST, instance=contractor)
         else:
@@ -33,22 +32,20 @@ def Edit(request):
 
     else:
         if request.GET.get('id'):
-            ID=int(request.GET['id'])
-            contractor=Contractor.objects.filter(id=ID)
+            contractor=Contractor.objects.get(id=request.GET['id'])
             if contractor:
               if isWorker:
-                contractorForm=ContractorFormWorker(instance=contractor[0])
+                contractorForm=ContractorFormWorker(instance=contractor)
+              elif contractor.Login==usertype and contractor.Supplier==False:
+                contractorForm=ContractorFormClient(instance=contractor)
               else:
-                contractorForm=ContractorFormClient(instance=contractor[0])
+                return redirect('contractor.views.List')
             else:
                 return redirect('contractor.views.List')
         else:
             return redirect('contractor.views.List')
 
-    if isWorker:	
-      context={'ContractorFormWorker':ContractorFormWorker(), 'isWorker':isWorker, 'id':ID}
-    else:
-      context={'ContractorFormClient':ContractorFormClient(), 'isWorker':isWorker, 'id':ID}	
+    context={'ContractorForm':contractorForm, 'isWorker':isWorker}
     return render(request, 'contractor_edit.html', context)
     
 def Add(request):
@@ -57,7 +54,10 @@ def Add(request):
     if request.method == 'POST': # formularz został przesłany
       supplier = request.POST.get('Supplier', False)      
       if isWorker:
-        contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=supplier,Login=UserType.objects.get(pk=request.POST['Login']))
+        if request.POST['Login']=='':
+          contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=supplier)
+        else:
+          contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=supplier,Login=UserType.objects.get(pk=request.POST['Login']))
         contractor.save()
       else:
         contractor = Contractor(Name=request.POST['Name'],Address=request.POST['Address'],Supplier=False,Login=UserType.objects.get(name=request.user.username))
@@ -73,7 +73,11 @@ def Add(request):
 
 def Delete(request):
     if request.GET.get('id'):
-        contractor=Contractor.objects.filter(id=request.GET['id'])
+        usertype = UserType.objects.get(name=request.user.username)
+        contractor=Contractor.objects.get(id=request.GET['id'])
         if contractor:
-            contractor[0].delete()
+            if usertype.isWorker:
+                contractor.delete()
+            elif contractor.Login==usertype and contractor.Supplier==False:
+                contractor.delete()
     return redirect('contractor.views.List')

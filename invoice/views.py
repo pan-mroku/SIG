@@ -5,10 +5,15 @@ from models import *
 from register.models import UserType
 
 def List(request):
-    isWorker=False
-    invoices=Invoice.objects.all()
     usertype = UserType.objects.get(name=request.user.username)
-    isWorker = usertype.isWorker 
+    
+    if usertype.isWorker:
+        invoices=Invoice.objects.all()
+    else:
+#        contractor=Contractor.objects.filter(Login=usertype.pk)
+#        for 
+        invoices=Invoice.objects.all()
+    
     context={'Invoices' : invoices, 'isWorker':isWorker}
     return render(request, 'invoice_list.html',context)
 
