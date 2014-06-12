@@ -31,20 +31,20 @@ def Edit(request):
             articleForm.save()
 
             return redirect('article.views.List')
-
+    
     else:
         if request.GET.get('id'):
-            article=Article.objects.filter(id=request.GET['id'])
-            if article:
-                articleForm=ArticleForm(instance=article[0])
+            usertype = UserType.objects.get(name=request.user.username)
+            article=Article.objects.get(id=request.GET['id'])
+            if article and usertype.isWorker:
+                articleForm=ArticleForm(instance=article)
             else:
                 return redirect('article.views.List')
         else:
             return redirect('article.views.List')
 
-	usertype = UserType.objects.get(name=request.user.username)
-	isWorker = usertype.isWorker 
-    context={'ArticleForm':articleForm, 'isWorker':isWorker}
+
+    context={'ArticleForm':articleForm}
     return render(request, 'article_edit.html', context)
     
 def Add(request):
@@ -65,7 +65,8 @@ def Add(request):
 
 def Delete(request):
     if request.GET.get('id'):
-        article=Article.objects.filter(id=request.GET['id'])
-        if article:
-            article[0].delete()
+        usertype = UserType.objects.get(name=request.user.username)
+        article=Article.objects.get(id=request.GET['id'])
+        if article and usertype.isWorker:
+            article.delete()
     return redirect('article.views.List')

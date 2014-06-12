@@ -5,7 +5,7 @@
 
 <div class="jumbotron">
   <div class="container">
-  	{{ info }}
+    {{ info }}
     <h2>Articles: </h2>
     <div class="row">
       <div class="col-md-2">
@@ -17,18 +17,18 @@
       <div class="col-md-2">
         <h3>Availability</h3>
       </div>
-	</div>
+    </div>
   </div>
 </div>
-    {% for Article in Articles %}
-	  {% if forloop.counter|divisibleby:2 %}
-        <div class="jumbotron">
-	  {% endif %}
-      <div class="container">
-      <div class="row">
-	  {% if not forloop.counter|divisibleby:2 %}
-        <b>
-	  {% endif %}
+{% for Article in Articles %}
+{% if forloop.counter|divisibleby:2 %}
+<div class="jumbotron">
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      {% if not forloop.counter|divisibleby:2 %}
+      <b>
+	{% endif %}
         <div class="col-md-2">
           <p>{{ Article.Name }}</p>
         </div>
@@ -38,36 +38,38 @@
         <div class="col-md-2">
           <p>{{ Article.Availability }}</p>
         </div>
-	  {% if not forloop.counter|divisibleby:2 %}
-        </b>
-	  {% endif %}
-        <div class="col-md-2">
+	{% if not forloop.counter|divisibleby:2 %}
+      </b>
+      {% endif %}
+      {% if isWorker %}
+      <div class="col-md-2">
         <div class="col-md-4">
-			<form action="{% url 'ArticleEdit'  %}" method="GET">
-              <input type="hidden" name="id" value="{{ Article.id }}" />
-              <input type="submit" value="Edit" class="btn btn-default"  />
-            </form>
+	  <form action="{% url 'ArticleEdit'  %}" method="GET">
+            <input type="hidden" name="id" value="{{ Article.id }}" />
+            <input type="submit" value="Edit" class="btn btn-default"  />
+          </form>
         </div>
-		<div class="col-md-4">
-            <form action="{% url 'ArticleDel' %}" method="GET">
-              <input type="hidden" name="id" value="{{ Article.id }}" />
-              <input type="submit" value="Delete" class="btn btn-default" />
-            </form>
-        </div>
+	<div class="col-md-4">
+          <form action="{% url 'ArticleDel' %}" method="GET">
+            <input type="hidden" name="id" value="{{ Article.id }}" />
+            <input type="submit" value="Delete" class="btn btn-default" />
+          </form>
         </div>
       </div>
-      </div>
-	  {% if forloop.counter|divisibleby:2 %}
-        </div>
-	  {% endif %}
-    {% endfor %}
-	{% if isWorker %}
+      {% endif %}
+    </div>
+  </div>
+  {% if forloop.counter|divisibleby:2 %}
+</div>
+{% endif %}
+{% endfor %}
+{% if isWorker %}
 <div class="jumbotron">
   <div class="container">
-		<form action="{% url 'ArticleAdd' %}" method="GET">
-			<input type="submit" value="Add New Article" class="btn btn-default"/>
-		</form>
+    <form action="{% url 'ArticleAdd' %}" method="GET">
+      <input type="submit" value="Add New Article" class="btn btn-default"/>
+    </form>
   </div>
 </div>
-	{% endif %}
+{% endif %}
 
