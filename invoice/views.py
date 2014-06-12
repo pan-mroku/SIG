@@ -74,16 +74,16 @@ def Edit(request):
             invoice=Invoice.objects.filter(pk=request.GET['id'])
             if invoice:
                 invoice=invoice[0]
-                if isWorker and invoice.DateOfPayment == None:
-                    invoiceForm=InvoiceForm(instance=invoice, prefix='invoice')
-                elif invoice.Contractor.Login==usertype and invoice.Contractor.Supplier==False and invoice.DateOfPayment == None:
-                    invoiceForm=InvoiceForm(instance=invoice, prefix='invoice')
-                else:
-                    return redirect('invoice.views.List')
                 i=1
                 for article in ArticleGatherer.objects.filter(Invoice=invoice):
                     articleGathererForms.append(ArticleGathererForm(instance=article, prefix='article_'+str(i)))
                     i=i+1
+                if isWorker and invoice.DateOfPayment == None:
+                    invoiceForm=InvoiceForm(instance=invoice, prefix='invoice', initial={'NumberOfArticles':len(articleGathererForms)})
+                elif invoice.Contractor.Login==usertype and invoice.Contractor.Supplier==False and invoice.DateOfPayment == None:
+                    invoiceForm=InvoiceForm(instance=invoice, prefix='invoice', initial={'NumberOfArticles':len(articleGathererForms)})
+                else:
+                    return redirect('invoice.views.List')
             else:
                 return redirect('invoice.views.List')
         else:

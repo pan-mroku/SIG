@@ -25,3 +25,16 @@ function countWholeInvoice(articlesDivId, nettoId, vatId, bruttoId)
     document.getElementById(vatId).innerHTML=sum_vat;
     document.getElementById(bruttoId).innerHTML=sum_brutto;
 }
+
+function refreshInvoice(articlesDivId)
+{
+    var articlesDiv=document.getElementById(articlesDivId);
+    for (var i=0;i<articlesDiv.children.length;i++)
+    {
+        var parent=articlesDiv.children[i];
+        alert(parent.id);
+    }
+/*    var prefix=parent.id;
+    var price=document.getElementById(
+    alert(parent.outerHTML);*/
+}

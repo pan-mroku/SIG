@@ -4,7 +4,6 @@
 
 <div id="example" style="display:none;">
   {{ ArticleGathererFormExample.as_p }}
-  <input type="button" value="Add another article" onClick = "addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');" >
 </div>
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
@@ -22,12 +21,17 @@
       {% csrf_token %}
       <input type="hidden" name="id" value="{{ InvoiceForm.instance.id }}" />
       {{ InvoiceForm.as_p }}
+      <input type="button" value="Add article" class="btn btn-default" onClick="addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');">
+      <input type="button" value="Delete last article" class="btn btn-default" onClick="delArticleFromInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');">
+
       <div id="articlesDiv">
         {% for ArticleGathererForm in ArticleGathererForms %}
-        {{ ArticleGathererForm.as_p }}
-        <input type="button" value="Add another article" class="btn btn-default" onClick="addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');">
+        <div id="{{ ArticleGathererForm.prefix }}">
+          {{ ArticleGathererForm.as_p }}
+        </div>
         {% endfor %}
       </div>
+
       <input type="submit" value="Save" class="btn btn-default" />
     </form>
   </div>

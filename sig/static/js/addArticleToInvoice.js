@@ -4,7 +4,7 @@ function addArticleToInvoice(divName, invoicePrefix)
     number.value++;
     var formExample=document.getElementById('example');
     var newarticle=document.createElement("div");
-    newarticle.id="article_"+number.value+"-div";
+    newarticle.id="article_"+number.value;
     newarticle.innerHTML = formExample.innerHTML.replace(/__NUMBER__/g, number.value);
     document.getElementById(divName).appendChild(newarticle);
 }

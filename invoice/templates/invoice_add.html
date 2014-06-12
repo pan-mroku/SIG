@@ -2,8 +2,38 @@
 
 <script src="{% static 'js/addArticleToInvoice.js' %}" language="Javascript" type="text/javascript"></script>
 
+<script src="{% static 'js/countInvoice.js' %}" language="Javascript" type="text/javascript"></script>
+<script language="Javascript" type="text/javascript">
+window.onload = function() {
+  countWholeInvoice('articleDiv', 'sum_netto', 'sum_vat', 'sum_brutto');
+};
+</script>
+
 <div id="example" style="display:none;">
-  {{ ArticleGathererFormExample.as_p }}
+  <div class="row" id="article___NUMBER__">
+    <div class="col-md-1">
+      <h3><select id="id_article___NUMBER__-Article" name="article___NUMBER__-Article">
+          <option value="" selected="selected">---------</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+      </select></h3>
+    </div>
+    <div class="col-md-2">
+      <h3 id="article___NUMBER___quantity"><input id="id_article___NUMBER__-Quantity" min="1" name="article___NUMBER__-Quantity" type="number" value="1" />/h3>
+    </div>
+    <div class="col-md-1">
+      <h3 id="article___NUMBER___price"></h3>
+    </div>
+    <div class="col-md-2">
+      <h3 id="article___NUMBER___netto">Netto</h3>
+    </div>
+    <div class="col-md-2">
+      <h3 id="article___NUMBER___vat">VAT</h3>
+    </div>
+    <div class="col-md-2">
+      <h3 id="article___NUMBER___brutto">Brutto</h3>
+    </div>
+  </div>
 </div>
 
 {% include "menu.html" %}
@@ -15,18 +45,86 @@
     <p style="color: red;">There were errors: </p>
     {% endif %}
 
-    <form action="" method="POST" name="invoice">
+    <form action="" method="POST" name="invoice" onChange="refreshInvoice('articleDiv');">
       {% csrf_token %}
       {{ InvoiceForm.as_p }}
       <input type="button" value="Add article" class="btn btn-default" onClick="addArticleToInvoice('articleDiv', '{{ InvoiceForm.prefix  }}');">
       <input type="button" value="Delete last article" class="btn btn-default" onClick="delArticleFromInvoice('articleDiv', '{{ InvoiceForm.prefix  }}');">
+      <div class="row">
+        <div class="col-md-1">
+          <h3>Article</h3>
+        </div>
+        <div class="col-md-2">
+          <h3>Quantity</h3>
+        </div>
+        <div class="col-md-1">
+          <h3>Price</h3>
+        </div>
+        <div class="col-md-2">
+          <h3>Netto</h3>
+        </div>
+        <div class="col-md-2">
+          <h3>VAT</h3>
+        </div>
+        <div class="col-md-2">
+          <h3>Brutto</h3>
+        </div>
+      </div>
+
       <div id="articleDiv">
         {% for ArticleGathererForm in ArticleGathererForms %}
-        <div id="{{ ArticleGathererForm.prefix }}-div">
-          {{ ArticleGathererForm.as_p }}
+        <div class="row" id="{{ ArticleGathererForm.prefix }}">
+          <input type="hidden" id="{{ ArticleGathererForm.prefix }}-Price" value="{{ ArticleGathererForm.Article.Price }}" > 
+          <div class="col-md-1">
+            <h3>{{ ArticleGathererForm.Article }}</h3>
+          </div>
+          <div class="col-md-2">
+            <h3 id="{{ ArticleGathererForm.prefix  }}_quantity">{{ ArticleGathererForm.Quantity }}</h3>
+          </div>
+          <div class="col-md-1">
+            <h3 id="{{ ArticleGathererForm.prefix  }}_price">{{ ArticleGathererForm.Article.Price }}</h3>
+          </div>
+          <div class="col-md-2">
+            <h3 id="{{ ArticleGathererForm.prefix  }}_netto">Netto</h3>
+          </div>
+          <div class="col-md-2">
+            <h3 id="{{ ArticleGathererForm.prefix  }}_vat">VAT</h3>
+          </div>
+          <div class="col-md-2">
+            <h3 id="{{ ArticleGathererForm.prefix  }}_brutto">Brutto</h3>
+          </div>
         </div>
         {% endfor %}
       </div>
+
+      <h2>Summary: </h2>
+
+      <div class="row">
+        <div class="col-md-2">
+          <h3>Netto</h3>
+        </div>
+        <div class="col-md-3">
+          <h3>VAT</h3>
+        </div>
+        <div class="col-md-2">
+          <h3>Brutto</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="light">
+          <div class="col-md-2">
+            <h3 id="sum_netto">Netto</h3>
+          </div>
+          <div class="col-md-3">
+            <h3 id="sum_vat">VAT</h3>
+          </div>
+          <div class="col-md-2">
+            <h3 id="sum_brutto">Brutto</h3>
+          </div>
+        </div>
+      </div>
+      <input type="button" value="click" onClick="countWholeInvoice('articleDiv', 'sum_netto', 'sum_vat', 'sum_brutto');">
       <input type="submit" value="Add" class="btn btn-default" />
     </form>
   </div>

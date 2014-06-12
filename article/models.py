@@ -9,7 +9,7 @@ class Article(models.Model):
     Availability=models.BooleanField(default=True)
     
     def __unicode__(self):
-        return self.Name+' '+str(self.Price)
+        return self.Name
 
 
 class ArticleForm(forms.ModelForm):
