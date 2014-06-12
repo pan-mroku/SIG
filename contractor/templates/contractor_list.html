@@ -61,7 +61,7 @@
 	  {% endif %}
     {% endfor %}
 	{% if user.is_authenticated %}
-	{% if not hasAccount %}
+
 <div class="jumbotron">
   <div class="container">
     <form action="{% url 'ContractorAdd' %}" method="GET">
@@ -69,6 +69,5 @@
     </form>
   </div>
 </div>
-    {% endif %}
 	{% endif %}
 
