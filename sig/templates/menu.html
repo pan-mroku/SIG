@@ -24,7 +24,13 @@
           <a class="navbar-brand"  href="{% url 'ContractorList' %}">Contractors</a>
       {% endif %}
       {% if user.is_authenticated %}
-      <p class="navbar-user" >User: <b>{{ user }}</b></p>
+        <p class="navbar-user" >User: <b>{{ user }}</b>
+        {% if isWorker %}
+		(worker)
+		{% else %}
+		(client)
+        {% endif %}
+        </p>
       {% endif %}
     </div>
     {% if user.is_authenticated %}

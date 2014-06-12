@@ -53,7 +53,12 @@ def Add(request):
         articleForm = ArticleForm(request.POST) # powiązanie formularza z przesłanymi danymi
         if articleForm.is_valid():
             articleForm.save()
-            
+            if request.POST['Code'] == '':
+              article=Article.objects.get(Name=request.POST['Name'], Price=request.POST['Price'])
+              article.Code=article.pk
+              article.save()
+              #print('id: '+str(article.id)+' Code/pk: '+str(article.Code))			  
+              
             return redirect('article.views.List')
         
     else:

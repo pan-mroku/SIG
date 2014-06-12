@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm, ValidationError
+from django import forms
 
 class Article(models.Model):
     Code=models.CharField(max_length=10)
@@ -11,7 +12,8 @@ class Article(models.Model):
         return self.Name+' '+str(self.Price)
 
 
-class ArticleForm(ModelForm):
+class ArticleForm(forms.ModelForm):
+    Code = forms.CharField(max_length=10,required=False)
     class Meta:
         model=Article
         fields='__all__'
@@ -24,6 +26,4 @@ class ArticleForm(ModelForm):
 
     def clean_Code(self):
         code=self.cleaned_data['Code']
-        if code=='':
-            code=self.pk
         return code

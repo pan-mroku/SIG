@@ -136,7 +136,12 @@ def Add(request):
             invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter(Supplier=True)
         else:
             invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter(Login=usertype, Supplier=False)
-        articleGathererForms=[]
+
+        articleGathererForm=ArticleGathererForm(prefix='article_1')
+        if not isWorker:
+          articleGathererForm.fields['Article'].queryset = Article.objects.filter(Availability=True)
+
+        articleGathererForms=[articleGathererForm] 
            
     context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}
     return render(request, 'invoice_add.html', context)
