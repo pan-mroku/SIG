@@ -47,6 +47,13 @@
       </b>
       {% endif %}
       <div class="col-md-2">
+        <div class="col-md-4">
+          <form action="{% url 'InvoiceView'  %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ Invoice.id }}" />
+            <input type="submit" value="View" class="btn btn-default"  />
+          </form>
+        </div>
 	<div class="col-md-4">
           <form action="{% url 'InvoiceEdit'  %}" method="GET">
             <input type="hidden" name="id" value="{{ Invoice.id }}" />

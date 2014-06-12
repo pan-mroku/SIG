@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from models import *
 from register.models import UserType
 
-def List(request):
+def List(request):        
     usertype = UserType.objects.get(name=request.user.username)
     
     if usertype.isWorker:
@@ -18,11 +18,14 @@ def List(request):
     context={'Invoices' : invoices, 'isWorker':usertype.isWorker}
     return render(request, 'invoice_list.html',context)
 
-# def View(request):
-#     if request.method == 'POST':
-#         invoice=Invoice.objects.get(id=request.POST['invoiceId'])
-#         invoiceForm=InvoiceForm(request.POST, instance=invoice)
-#         articles=ArticleGatherer.objects.get(id=request.POST['articlesId'])
+def View(request):
+    if request.method == 'POST':
+        invoice=Invoice.objects.get(id=request.POST['id'])
+        articles=ArticleGatherer.objects.filter(Invoice=invoice)
+        context={'Invoice' : invoice, 'ArticleGatherers' : articles}
+        return render(request, 'invoice_view.html', context)
+        
+    return redirect('invoice.views.List')
         
 def Edit(request):
     usertype = UserType.objects.get(name=request.user.username)

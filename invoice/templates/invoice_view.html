@@ -1,0 +1,138 @@
+{% load staticfiles %}
+
+
+{% include "menu.html" %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+<script src="{% static 'js/countInvoice.js' %}" language="Javascript" type="text/javascript"></script>
+<script language="Javascript" type="text/javascript">
+window.onload = function() {
+  count('articleList');
+};
+</script>
+
+<div class="jumbotron">
+  <div class="container">
+
+    <h2>Invoice: </h2>
+    <div class="row">
+      <div class="col-md-2">
+        {% if Invoice.Contractor.Supplier %}
+        <h3>Seller</h3>
+        {% else %}
+        <h3>Buyer</h3>
+        {% endif %}
+      </div>
+      <div class="col-md-2">
+        <h3>Date of Sale</h3>
+      </div>
+      <div class="col-md-3">
+        <h3>Method of Payment</h3>
+      </div>
+      <div class="col-md-2">
+        <h3>Date of Payment</h3>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="light">
+        <div class="col-md-1">
+          <p>{{ Invoice.Contractor }}</p>
+        </div>
+        <div class="col-md-2">
+          <p>{{ Invoice.DateOfSale }}</p>
+        </div>
+        <div class="col-md-3">
+          <p>{{ Invoice.get_MethodOfPayment_display }}</p>
+        </div>
+        <div class="col-md-2">
+          <p>{{ Invoice.DateOfPayment }}</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Articles: </h2>
+
+    <div class="row">
+      <div class="col-md-1">
+        <h3>Code</h3>
+      </div>
+      <div class="col-md-2">
+        <h3>Name</h3>
+      </div>
+      <div class="col-md-1">
+        <h3>Price</h3>
+      </div>
+      <div class="col-md-2">
+        <h3>Quantity</h3>
+      </div>
+      <div class="col-md-1">
+        <h3>Netto</h3>
+      </div>
+      <div class="col-md-1">
+        <h3>VAT</h3>
+      </div>
+      <div class="col-md-1">
+        <h3>Brutto</h3>
+      </div>
+    </div>
+
+    <div class="light" id="articleList">
+      {% for ArticleGatherer in ArticleGatherers %}
+      <div class="row" id="{{ ArticleGatherer.pk }}">
+        <div class="col-md-2">
+          <h3>{{ ArticleGatherer.Article.Code }}</h3>
+        </div>
+        <div class="col-md-2">
+          <h3>{{ ArticleGatherer.Article.Name }}</h3>
+        </div>
+        <div class="col-md-1">
+          <h3 id="{{ ArticleGatherer.pk  }}_price">{{ ArticleGatherer.Article.Price }}</h3>
+        </div>
+        <div class="col-md-2">
+          <h3 id="{{ ArticleGatherer.pk  }}_quantity">{{ ArticleGatherer.Quantity }}</h3>
+        </div>
+        <div class="col-md-1">
+          <h3 id="{{ ArticleGatherer.pk  }}_netto">Netto</h3>
+        </div>
+        <div class="col-md-1">
+          <h3 id="{{ ArticleGatherer.pk  }}_vat">VAT</h3>
+        </div>
+        <div class="col-md-1">
+          <h3 id="{{ ArticleGatherer.pk  }}_brutto">Brutto</h3>
+        </div>
+      </div>
+      {% endfor  %}
+    </div>
+
+    <h2>Summary: </h2>
+
+    <div class="row">
+      <div class="col-md-2">
+        <h3>Netto</h3>
+      </div>
+      <div class="col-md-3">
+        <h3>VAT</h3>
+      </div>
+      <div class="col-md-2">
+        <h3>Brutto</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="light">
+        <div class="col-md-2">
+          <h3 id="sum_netto">Netto</h3>
+        </div>
+        <div class="col-md-3">
+          <h3 id="sum_vat">VAT</h3>
+        </div>
+        <div class="col-md-2">
+          <h3 id="sum_brutto">Brutto</h3>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>

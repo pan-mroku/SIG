@@ -24,8 +24,9 @@ kontahentów niech nie widzi, a faktury na pewno niech widzi własne
 TODO
 ----
 * Dokończyć faktury
-  * Automatyczne przeliczanie
+  * Automatyczne przeliczanie w edycji
   * Wyświetlanie w zależności od uprawnień użytkownika
   * Dodać zatwierdzanie zapłąty przez workera
-  * Dodać guzik view dla faktur, których nie można już edytować
   * Dodać guzik usuń artykuł w invoice
+  * Poładnić view
+  
