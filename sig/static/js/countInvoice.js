@@ -14,7 +14,7 @@ function count(whatId)
         var brutto=document.getElementById(prefix+'_brutto');
         netto.innerHTML=price*quantity;
         vat.innerHTML=23*price*quantity/100.0;
-        brutto.innerHTML=netto.innerHTML+vat.innerHTML;
+        brutto.innerHTML=parseFloat(netto.innerHTML)+parseFloat(vat.innerHTML);
         
         sum_netto+=parseFloat(netto.innerHTML);
         sum_vat+=parseFloat(vat.innerHTML);
