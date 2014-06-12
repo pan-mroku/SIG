@@ -26,5 +26,3 @@ TODO
 * Dokończyć faktury
   * Automatyczne przeliczanie
   * Wyświetlanie w zależności od uprawnień użytkownika
-  * w ArticleGatherer na pewno jeszcze musi być foreignkey do Invoice
-   https://docs.djangoproject.com/en/dev/topics/db/models/#extra-fields-on-many-to-many-relationships

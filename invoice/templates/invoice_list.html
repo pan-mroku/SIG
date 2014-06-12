@@ -4,7 +4,7 @@
 {% include "menu.html" %}
 <div class="jumbotron">
   <div class="container">
-  	{{ info }}
+    {{ info }}
     <h2>Invoices: </h2>
     <div class="row">
       <div class="col-md-2">
@@ -19,18 +19,18 @@
       <div class="col-md-2">
         <h3>Date of Payment</h3>
       </div>
-	</div>
+    </div>
   </div>
 </div>
-    {% for Invoice in Invoices %}
-	  {% if forloop.counter|divisibleby:2 %}
-        <div class="jumbotron">
-	  {% endif %}
-      <div class="container">
-      <div class="row">
-	  {% if not forloop.counter|divisibleby:2 %}
-        <b>
-	  {% endif %}
+{% for Invoice in Invoices %}
+{% if forloop.counter|divisibleby:2 %}
+<div class="jumbotron">
+  {% endif %}
+  <div class="container">
+    <div class="row">
+      {% if not forloop.counter|divisibleby:2 %}
+      <b>
+	{% endif %}
         <div class="col-md-2">
           <p>{{ Invoice.Contractor }}</p>
         </div>
@@ -38,40 +38,38 @@
           <p>{{ Invoice.DateOfSale }}</p>
         </div>
         <div class="col-md-3">
-          <p>{{ Invoice.MethodOfPayment }}</p>
+          <p>{{ Invoice.get_MethodOfPayment_display }}</p>
         </div>
         <div class="col-md-2">
           <p>{{ Invoice.DateOfPayment }}</p>
         </div>
-	  {% if not forloop.counter|divisibleby:2 %}
-        </b>
-	  {% endif %}
-        <div class="col-md-2">
-		<div class="col-md-4">
-        <form action="{% url 'InvoiceEdit'  %}" method="GET">
-          <input type="hidden" name="id" value="{{ Invoice.id }}" />
-          <input type="submit" value="Edit" class="btn btn-default"  />
-        </form>
+	{% if not forloop.counter|divisibleby:2 %}
+      </b>
+      {% endif %}
+      <div class="col-md-2">
+	<div class="col-md-4">
+          <form action="{% url 'InvoiceEdit'  %}" method="GET">
+            <input type="hidden" name="id" value="{{ Invoice.id }}" />
+            <input type="submit" value="Edit" class="btn btn-default"  />
+          </form>
         </div>
         <div class="col-md-4">
-        <form action="{% url 'InvoiceDel' %}" method="GET">
-          <input type="hidden" name="id" value="{{ Invoice.id }}" />
-          <input type="submit" value="Delete" class="btn btn-default" />
-        </form>
-        </div>
+          <form action="{% url 'InvoiceDel' %}" method="GET">
+            <input type="hidden" name="id" value="{{ Invoice.id }}" />
+            <input type="submit" value="Delete" class="btn btn-default" />
+          </form>
         </div>
       </div>
-      </div>
-	  {% if forloop.counter|divisibleby:2 %}
-        </div>
-	  {% endif %}
-    {% endfor %}
-	{% if isWorker %}
+    </div>
+  </div>
+  {% if forloop.counter|divisibleby:2 %}
+</div>
+{% endif %}
+{% endfor %}
 <div class="jumbotron">
   <div class="container">
-		<form action="{% url 'InvoiceAdd' %}" method="GET">
-			<input type="submit" value="Add New Invoice" class="btn btn-default"/>
-		</form>
+    <form action="{% url 'InvoiceAdd' %}" method="GET">
+      <input type="submit" value="Add New Invoice" class="btn btn-default"/>
+    </form>
   </div>
 </div>
-	{% endif %}

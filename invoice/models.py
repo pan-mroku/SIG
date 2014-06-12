@@ -15,7 +15,7 @@ class Invoice(models.Model):
         ('TRANSFER', 'Transfer'),
     )
     MethodOfPayment=models.CharField(max_length=8, choices=PAYMENT_CHOICES, default='CASH')
-    DateOfPayment=models.DateField()
+    DateOfPayment=models.DateField(null=True)
 
     def __unicode__(self):
         out=self.Contractor.Name+' '+str(self.DateOfSale)
@@ -35,5 +35,5 @@ class InvoiceForm(forms.ModelForm):
     NumberOfArticles=forms.IntegerField(widget=forms.HiddenInput(), initial=1)
     class Meta:
         model=Invoice
-        exclude=['Articles']
+        exclude=['Articles', 'DateOfPayment']
 

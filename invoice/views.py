@@ -14,7 +14,7 @@ def List(request):
 #        for 
         invoices=Invoice.objects.all()
     
-    context={'Invoices' : invoices, 'isWorker':isWorker}
+    context={'Invoices' : invoices, 'isWorker':usertype.isWorker}
     return render(request, 'invoice_list.html',context)
 
 # def View(request):
@@ -51,12 +51,15 @@ def Edit(request):
     return render(request, 'invoice_edit.html', context)
 
 from article.models import Article
+from contractor.models import Contractor
 
 def Add(request):
     usertype = UserType.objects.get(name=request.user.username)
     isWorker = usertype.isWorker
+
     articleGathererFormExample=ArticleGathererForm(prefix='article___NUMBER__')
     articleGathererForms=[]
+    
     if request.method == 'POST': # formularz został przesłany
         invoiceForm = InvoiceForm(request.POST, prefix='invoice') # powiązanie formularza z przesłanymi danymi
         if invoiceForm.is_valid():
@@ -81,6 +84,9 @@ def Add(request):
                     articleGathererForms.append(ArticleGathererForm(request.POST, prefix='article_'+str(i+1)))
     else:
         invoiceForm = InvoiceForm(prefix='invoice')
+        if not isWorker:
+            invoiceForm.fields['Contractor'].queryset=Contractor.objects.filter(Login=usertype, Supplier=False)
+
         articleGathererForms=[ArticleGathererForm(prefix='article_1')]
            
     context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}

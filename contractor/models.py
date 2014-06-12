@@ -8,9 +8,7 @@ class Contractor(models.Model):
     Supplier=models.BooleanField(default=False)
 
     def __unicode__(self):
-        if self.Supplier:
-            return self.Name+' '+self.Address+' Supplier'
-        return self.Name+' '+self.Address+' Buyer'
+        return self.Name+' '+self.Address
             
     
 
