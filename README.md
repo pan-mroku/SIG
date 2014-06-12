@@ -27,6 +27,6 @@ TODO
   * Numer faktury uzupełniany automatycznie (jak code w towrach)
   * Automatyczne przeliczanie w edycji
   * **Poładnić view**
-  * **Niech w yborze artykułów przy tworzeniu faktury klient może wybierać tylko spośród dostępnych artykułów (queryset)**
+
 * Towary
   * Automatycznie uzupełniane pole code
