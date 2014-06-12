@@ -7,11 +7,15 @@ def List(request):
     isWorker=False
     usertype = UserType.objects.get(name=request.user.username)
     isWorker = usertype.isWorker
+    hasAccount = False
     if isWorker:
         contractors=Contractor.objects.all()
     else:
         contractors=Contractor.objects.filter(Login=usertype.pk, Supplier=False)
-    context={'Contractors': contractors, 'isWorker':isWorker}
+        if len(contractors)>0:
+          hasAccount=True
+
+    context={'Contractors': contractors, 'isWorker':isWorker, 'hasAccount':hasAccount}
     return render(request, 'contractor_list.html', context)
 
 def Edit(request):

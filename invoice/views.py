@@ -133,7 +133,7 @@ def Add(request):
     else:
         invoiceForm = InvoiceForm(prefix='invoice')
         if isWorker:
-            invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter(Supplier=True)
+            invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter()
         else:
             invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter(Login=usertype, Supplier=False)
 
