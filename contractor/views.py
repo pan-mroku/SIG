@@ -32,14 +32,15 @@ def Edit(request):
 
     else:
         if request.GET.get('id'):
-            contractor=Contractor.objects.get(id=request.GET['id'])
+            contractor=Contractor.objects.filter(id=request.GET['id'])
             if contractor:
-              if isWorker:
-                contractorForm=ContractorFormWorker(instance=contractor)
-              elif contractor.Login==usertype and contractor.Supplier==False:
-                contractorForm=ContractorFormClient(instance=contractor)
-              else:
-                return redirect('contractor.views.List')
+                contractor=contractor[0]
+                if isWorker:
+                  contractorForm=ContractorFormWorker(instance=contractor)
+                elif contractor.Login==usertype and contractor.Supplier==False:
+                  contractorForm=ContractorFormClient(instance=contractor)
+                else:
+                  return redirect('contractor.views.List')
             else:
                 return redirect('contractor.views.List')
         else:
@@ -74,8 +75,9 @@ def Add(request):
 def Delete(request):
     if request.GET.get('id'):
         usertype = UserType.objects.get(name=request.user.username)
-        contractor=Contractor.objects.get(id=request.GET['id'])
+        contractor=Contractor.objects.filter(id=request.GET['id'])
         if contractor:
+            contractor=contractor[0]
             if usertype.isWorker:
                 contractor.delete()
             elif contractor.Login==usertype and contractor.Supplier==False:

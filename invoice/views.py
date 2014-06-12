@@ -39,23 +39,28 @@ def Edit(request):
             for i in range(data['NumberOfArticles']):
                 articleGathererForm=ArticleGathererForm(request.POST, prefix='article_'+str(i+1))
                 articleGathererForms.append(articleGathererForm)
-                if articleGathererForm.is_valid():
-                    articleGatherer=articleGathererForm.save(commit=False)
-                    articleGatherer.Invoice=invoice
-                else:
+
+            for articleGathererForm in articleGathererForms:
+                if not articleGathererForm.is_valid():
                     context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}
                     return render(request, 'invoice_add.html', context)
-                #skoro przeszło wszystkie artykuły i jest ok, to można zapisać
-                invoice.save()
-                for articleGathererForm in articleGathererForms:
-                    articleGathererForm.save()
+                
+           
+                               
+            #skoro przeszło wszystkie artykuły i jest ok, to można zapisać
+            invoice.save()
+            for articleGathererForm in articleGathererForms:
+                articleGatherer=articleGathererForm.save(commit=False)
+                articleGatherer.Invoice=invoice
+                articleGathererForm.save()
 					
             return redirect('invoice.views.List')
 
     else:
         if request.GET.get('id'):
-            invoice=Invoice.objects.get(id=request.GET['id'])
+            invoice=Invoice.objects.filter(pk=request.GET['id'])
             if invoice:
+                invoice=invoice[0]
                 if isWorker:
                     invoiceForm=InvoiceForm(instance=invoice, prefix='invoice')
                 elif invoice.Contractor.Login==usertype and invoice.Contractor.Supplier==False and (invoice.DateOfPayment == None):
@@ -126,7 +131,12 @@ def Add(request):
 
 def Delete(request):
     if request.GET.get('id'):
+        usertype = UserType.objects.get(name=request.user.username)
         invoice=Invoice.objects.filter(id=request.GET['id'])
         if invoice:
-            invoice[0].delete()
+            invoice=invoice[0]
+            if usertype.isWorker:
+                invoice.delete()
+            elif invoice.Contractor.Login==usertype and invoice.Contractor.Supplier==False and (invoice.DateOfPayment == None):
+                invoice.delete()
     return redirect('invoice.views.List')

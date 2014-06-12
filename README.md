@@ -26,3 +26,6 @@ TODO
 * Dokończyć faktury
   * Automatyczne przeliczanie
   * Wyświetlanie w zależności od uprawnień użytkownika
+  * Dodać zatwierdzanie zapłąty przez workera
+  * Dodać guzik view dla faktur, których nie można już edytować
+  * Dodać guzik usuń artykuł w invoice
