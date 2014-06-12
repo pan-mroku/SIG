@@ -26,5 +26,3 @@ TODO
 * Faktury
   * Numer faktury uzupełniany automatycznie (jak code w towrach)
   * Automatyczne przeliczanie w edycji
-  * **Poładnić view**
-
