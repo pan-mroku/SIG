@@ -28,5 +28,3 @@ TODO
   * Automatyczne przeliczanie w edycji
   * **Poładnić view**
 
-* Towary
-  * Automatycznie uzupełniane pole code
