@@ -20,9 +20,4 @@ Uprawnienia
   * Klient - widzi dostępne towary z możliwością "dodania do koszyka", czyli złożenia zamówienia, czyli zrobienia faktury z tymi towarami.
 kontahentów niech nie widzi, a faktury na pewno niech widzi własne
   * Pracownik -  natomiast widzi wszystko
-  
-TODO
-----
-* Faktury
-  * Numer faktury uzupełniany automatycznie (jak code w towrach)
-  * Automatyczne przeliczanie w edycji
+
