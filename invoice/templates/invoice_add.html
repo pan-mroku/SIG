@@ -4,7 +4,6 @@
 
 <div id="example" style="display:none;">
   {{ ArticleGathererFormExample.as_p }}
-  <input type="button" value="Delete this article" class="btn btn-default" onClick="delArticleFromInvoice('article___NUMBER__-div', '{{ InvoiceForm.prefix  }}');">
 </div>
 
 {% include "menu.html" %}
@@ -16,15 +15,15 @@
     <p style="color: red;">There were errors: </p>
     {% endif %}
 
-    <form action="" method="POST">
+    <form action="" method="POST" name="invoice">
       {% csrf_token %}
       {{ InvoiceForm.as_p }}
-      <input type="button" value="Add another article" class="btn btn-default" onClick="addArticleToInvoice('articleDiv', '{{ InvoiceForm.prefix  }}');">
+      <input type="button" value="Add article" class="btn btn-default" onClick="addArticleToInvoice('articleDiv', '{{ InvoiceForm.prefix  }}');">
+      <input type="button" value="Delete last article" class="btn btn-default" onClick="delArticleFromInvoice('articleDiv', '{{ InvoiceForm.prefix  }}');">
       <div id="articleDiv">
         {% for ArticleGathererForm in ArticleGathererForms %}
         <div id="{{ ArticleGathererForm.prefix }}-div">
           {{ ArticleGathererForm.as_p }}
-          <input type="button" value="Delete this article" class="btn btn-default" onClick="delArticleFromInvoice('{{ ArticleGathererForm.prefix  }}-div', '{{ InvoiceForm.prefix  }}');">
         </div>
         {% endfor %}
       </div>

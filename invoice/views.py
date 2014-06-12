@@ -59,12 +59,13 @@ def Edit(request):
                 
            
                                
-            #skoro przeszło wszystkie artykuły i jest ok, to można zapisać
-            invoice.save()
-            for articleGathererForm in articleGathererForms:
-                articleGatherer=articleGathererForm.save(commit=False)
-                articleGatherer.Invoice=invoice
-                articleGathererForm.save()
+            #skoro przeszło wszystkie artykuły i jest ok, to można zapisać, ale tylko jeśli są jakieś artykuły!
+            if articleGathererForms:
+                invoice.save()
+                for articleGathererForm in articleGathererForms:
+                    articleGatherer=articleGathererForm.save(commit=False)
+                    articleGatherer.Invoice=invoice
+                    articleGathererForm.save()
 					
             return redirect('invoice.views.List')
 
@@ -99,6 +100,7 @@ def Add(request):
     isWorker = usertype.isWorker
 
     articleGathererFormExample=ArticleGathererForm(prefix='article___NUMBER__')
+    articleGathererFormExample.fields['Article'].queryset = Article.objects.filter(Availability=True)
     articleGathererForms=[]
     
     if request.method == 'POST': # formularz został przesłany
@@ -115,13 +117,12 @@ def Add(request):
                     context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}
                     return render(request, 'invoice_add.html', context)
                 
-                                    
-            #skoro przeszło wszystkie artykuły i jest ok, to można zapisać
-            invoice.save()
-            for articleGathererForm in articleGathererForms:
-                articleGatherer=articleGathererForm.save(commit=False)
-                articleGatherer.Invoice=invoice
-                articleGathererForm.save()
+            if articleGathererForms:
+                invoice.save()
+                for articleGathererForm in articleGathererForms:
+                    articleGatherer=articleGathererForm.save(commit=False)
+                    articleGatherer.Invoice=invoice
+                    articleGathererForm.save()
 					
             return redirect('invoice.views.List')
 
@@ -135,8 +136,7 @@ def Add(request):
             invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter(Supplier=True)
         else:
             invoiceForm.fields['Contractor'].queryset = Contractor.objects.filter(Login=usertype, Supplier=False)
-
-        articleGathererForms=[ArticleGathererForm(prefix='article_1')]
+        articleGathererForms=[]
            
     context={'InvoiceForm':invoiceForm, 'ArticleGathererForms' : articleGathererForms, 'ArticleGathererFormExample' : articleGathererFormExample, 'isWorker':isWorker}
     return render(request, 'invoice_add.html', context)
