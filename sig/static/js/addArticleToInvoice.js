@@ -11,7 +11,9 @@ function addArticleToInvoice(divName, invoicePrefix)
 
 function delArticleFromInvoice(articleId, invoicePrefix)
 {
-    var article=document.getElementById(articleId);
-    article.parentNode.removeChild(article);
-    document.getElementById("id_"+invoicePrefix + "-NumberOfArticles").value--;
+    var number=document.getElementById("id_"+invoicePrefix + "-NumberOfArticles");
+    number.value--;
+
+    var last=document.getElementById(articleId).children[number.value];
+    last.parentNode.removeChild(last);
 }

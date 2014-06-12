@@ -30,7 +30,7 @@ class ArticleGathererForm(forms.ModelForm):
         exclude=['Invoice']
 
 class InvoiceForm(forms.ModelForm):
-    NumberOfArticles=forms.IntegerField(widget=forms.HiddenInput(), initial=1)
+    NumberOfArticles=forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model=Invoice
         exclude=['Articles', 'DateOfPayment']
