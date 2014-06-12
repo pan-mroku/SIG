@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^add/', views.Add, name='InvoiceAdd'),
     url(r'^delete/', views.Delete, name='InvoiceDel'),
     url(r'^view/', views.View, name='InvoiceView'),
+    url(r'^paid/', views.SetDateOfPayment, name='InvoiceSetDate'),
 )

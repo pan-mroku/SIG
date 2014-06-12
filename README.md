@@ -24,8 +24,8 @@ kontahentów niech nie widzi, a faktury na pewno niech widzi własne
 TODO
 ----
 * Faktury
+  * Numer faktury uzupełniany automatycznie (jak code w towrach)
   * Automatyczne przeliczanie w edycji
-  * **Dodać zatwierdzanie zapłąty przez workera**
   * **Poładnić view**
   * **Niech w yborze artykułów przy tworzeniu faktury klient może wybierać tylko spośród dostępnych artykułów (queryset)**
 * Towary

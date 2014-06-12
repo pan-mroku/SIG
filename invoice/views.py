@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from models import *
 from register.models import UserType
@@ -26,7 +27,14 @@ def View(request):
         return render(request, 'invoice_view.html', context)
         
     return redirect('invoice.views.List')
-        
+
+def SetDateOfPayment(request):
+    if request.method == 'POST':
+        invoice=Invoice.objects.get(pk=request.POST['id'])
+        invoice.DateOfPayment=timezone.localtime(timezone.now()).date()
+        invoice.save()
+    return redirect('invoice.views.List')
+
 def Edit(request):
     usertype = UserType.objects.get(name=request.user.username)
     isWorker = usertype.isWorker 
@@ -65,9 +73,9 @@ def Edit(request):
             invoice=Invoice.objects.filter(pk=request.GET['id'])
             if invoice:
                 invoice=invoice[0]
-                if isWorker:
+                if isWorker and invoice.DateOfPayment == None:
                     invoiceForm=InvoiceForm(instance=invoice, prefix='invoice')
-                elif invoice.Contractor.Login==usertype and invoice.Contractor.Supplier==False and (invoice.DateOfPayment == None):
+                elif invoice.Contractor.Login==usertype and invoice.Contractor.Supplier==False and invoice.DateOfPayment == None:
                     invoiceForm=InvoiceForm(instance=invoice, prefix='invoice')
                 else:
                     return redirect('invoice.views.List')
