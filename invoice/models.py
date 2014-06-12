@@ -19,8 +19,6 @@ class Invoice(models.Model):
 
     def __unicode__(self):
         out=self.Contractor.Name+' '+str(self.DateOfSale)
-        #for article in self.Articles:
-        #    out=out+'\n'+article.Article.Code+' '+article.Article.Name+' '+article.Article.Price+' '+article.Quantity
         out=out+'\n'+self.MethodOfPayment+str(self.DateOfPayment)
         return out
 from article.models import Article

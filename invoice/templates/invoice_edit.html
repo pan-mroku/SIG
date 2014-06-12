@@ -1,21 +1,34 @@
 {% load staticfiles %}
 
+<script src="{% static 'js/addArticleToInvoice.js' %}" language="Javascript" type="text/javascript"></script>
+
+<div id="example" style="display:none;">
+  {{ ArticleGathererFormExample.as_p }}
+  <input type="button" value="Add another article" onClick = "addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');" >
+</div>
+
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
 {% include "menu.html" %}
 
-    <div class="jumbotron">
-      <div class="container">
-	  	  <h3>Edit Invoice: </h3>
-  {% if InvoiceForm.errors %}
-  <p style="color: red;">There were errors: </p>
-  {% endif %}
+<div class="jumbotron">
+  <div class="container">
+    <h3>Edit Invoice: </h3>
+    {% if InvoiceForm.errors %}
+    <p style="color: red;">There were errors: </p>
+    {% endif %}
 
-  <form action="" method="POST">
-    {% csrf_token %}
-    <input type="hidden" name="id" value="{{ InvoiceForm.instance.id }}" />
-    {{ InvoiceForm.as_p }}
-    <input type="submit" value="Save" class="btn btn-default" />
-  </form>
-</div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{{ InvoiceForm.instance.id }}" />
+      {{ InvoiceForm.as_p }}
+      <div id="articlesDiv">
+        {% for ArticleGathererForm in ArticleGathererForms %}
+        {{ ArticleGathererForm.as_p }}
+        <input type="button" value="Add another article" class="btn btn-default" onClick="addArticleToInvoice('articlesDiv', '{{ InvoiceForm.prefix  }}');">
+        {% endfor %}
+      </div>
+      <input type="submit" value="Save" class="btn btn-default" />
+    </form>
+  </div>
 </div>
