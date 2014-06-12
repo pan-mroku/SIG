@@ -10,9 +10,10 @@ def List(request):
     if usertype.isWorker:
         invoices=Invoice.objects.all()
     else:
-#        contractor=Contractor.objects.filter(Login=usertype.pk)
-#        for 
-        invoices=Invoice.objects.all()
+        contractors=Contractor.objects.filter(Login=usertype)
+        invoices=[]
+        for contractor in contractors:
+            invoices.extend(Invoice.objects.filter(Contractor=contractor))
     
     context={'Invoices' : invoices, 'isWorker':usertype.isWorker}
     return render(request, 'invoice_list.html',context)
