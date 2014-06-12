@@ -23,10 +23,11 @@ kontahentów niech nie widzi, a faktury na pewno niech widzi własne
   
 TODO
 ----
-* Dokończyć faktury
+* Faktury
   * Automatyczne przeliczanie w edycji
-  * Wyświetlanie w zależności od uprawnień użytkownika
-  * Dodać zatwierdzanie zapłąty przez workera
+  * **Dodać zatwierdzanie zapłąty przez workera**
   * Dodać guzik usuń artykuł w invoice
-  * Poładnić view
-  
+  * **Poładnić view**
+  * **Niech w yborze artykułów przy tworzeniu faktury klient może wybierać tylko spośród dostępnych artykułów (queryset)**
+* Towary
+  * Automatycznie uzupełniane pole code
