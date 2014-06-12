@@ -8,7 +8,7 @@
 <script src="{% static 'js/countInvoice.js' %}" language="Javascript" type="text/javascript"></script>
 <script language="Javascript" type="text/javascript">
 window.onload = function() {
-  count('articleList');
+  countWholeInvoice('articleList', 'sum_netto', 'sum_vat', 'sum_brutto');
 };
 </script>
 

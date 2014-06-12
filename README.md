@@ -26,7 +26,6 @@ TODO
 * Faktury
   * Automatyczne przeliczanie w edycji
   * **Dodać zatwierdzanie zapłąty przez workera**
-  * Dodać guzik usuń artykuł w invoice
   * **Poładnić view**
   * **Niech w yborze artykułów przy tworzeniu faktury klient może wybierać tylko spośród dostępnych artykułów (queryset)**
 * Towary

@@ -1,6 +1,6 @@
-function count(whatId)
+function countWholeInvoice(articlesDivId, nettoId, vatId, bruttoId)
 {
-    var what=document.getElementById(whatId);
+    var what=document.getElementById(articlesDivId);
 
     var sum_netto=0.0, sum_vat=0.0, sum_brutto=0.0;
     for (var i=0; i<what.childElementCount; i++)
@@ -21,7 +21,7 @@ function count(whatId)
         sum_brutto+=parseFloat(brutto.innerHTML);
     }
 
-    document.getElementById("sum_netto").innerHTML=sum_netto;
-    document.getElementById("sum_vat").innerHTML=sum_vat;
-    document.getElementById("sum_brutto").innerHTML=sum_brutto;
+    document.getElementById(nettoId).innerHTML=sum_netto;
+    document.getElementById(vatId).innerHTML=sum_vat;
+    document.getElementById(bruttoId).innerHTML=sum_brutto;
 }
